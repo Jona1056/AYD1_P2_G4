@@ -10,14 +10,15 @@ const obtenerNombreDia = (año, mes, dia) => {
   return fecha.toLocaleDateString('es-ES', { weekday: 'long' });
 };
 
-const setHorario = (dia, mes) => {
+const setHorario = (dia, mes,idDoctor) => {
   const fecha = new Date(2024,mes, dia);
   const nombreDia = fecha.toLocaleDateString('es-ES', { weekday: 'long' }).toLowerCase();
   console.log(nombreDia);
-  swal("Fecha seleccionada", `La fecha es: ${dia}/${mes + 1}/2024 ${nombreDia}`);
+  swal("Fecha seleccionada", `La fecha es: ${dia}/${mes + 1}/2024 ${nombreDia} ${idDoctor}`);
 };
 
-const Calendar = ({ month, horarios }) => {
+// eslint-disable-next-line react/prop-types
+const Calendar = ({ month, horarios, doctorId }) => {
   const dias = Array.from({ length: diasEnMes(month) }, (_, i) => i + 1);
 
   return (
@@ -28,7 +29,7 @@ const Calendar = ({ month, horarios }) => {
           <li key={dia} className={dia === new Date().getDate() && month === new Date().getMonth() ? 'today' : ''}>
             <time dateTime={`2024-${(month + 1).toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`}>{dia}</time>
             <span>{obtenerNombreDia(2024, month, dia)}</span>
-            <button onClick={() => setHorario(dia, month)}>Ver horarios</button>
+            <button onClick={() => setHorario(dia, month,doctorId)}>Ver horarios</button>
             {horarios[dia] && (
               <div className="horarios">
                 {Object.keys(horarios[dia]).map(doctor => (

@@ -48,6 +48,7 @@ exports.getDoctorSinCita = async (req, res) => {
   const { id_usuario } = req.params;
   try {
     const doctores = await Usuario.getAllDoctorSinCita(id_usuario);
+  
     res.json(doctores);
   } catch (error) {
     res.status(500).json({ message: error.message });
