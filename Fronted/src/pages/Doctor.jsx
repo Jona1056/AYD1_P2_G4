@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/Doctores.css"; // Asegúrate de tener este archivo CSS
 import { useNavigate } from "react-router-dom";
+import Navbar1 from "../components/navbar";
 const Doctores = () => {
   const navigate = useNavigate();
   const [doctores, setDoctores] = useState([]);
@@ -29,6 +30,8 @@ const Doctores = () => {
   };
 
   return (
+    <div>
+    <Navbar1 />
     <div className="Doctores-div">
       {doctores.length > 0 ? (
         doctores.map((doctor) => (
@@ -61,6 +64,7 @@ const Doctores = () => {
       ) : (
         <p>Cargando datos de los doctores...</p>
       )}
+    </div>
     </div>
   );
 };
