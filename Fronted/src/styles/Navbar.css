@@ -1,0 +1,76 @@
+/* Estilos del navbar */
+.navbar {
+    background-color: #b4bbc1;
+    color: #f7f7f7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+  }
+  
+  .navbar-brand {
+    font-size: 1.5rem;
+  }
+  
+  .navbar-menu {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-item {
+    color: rgb(254, 254, 254);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  
+  .navbar-item.logout {
+    background-color: #e74c3c;
+    border-radius: 5px;
+  }
+  
+  .navbar-item:hover {
+    background-color: #555;
+  }
+  
+  .navbar-burger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+  }
+  
+  .navbar-burger span {
+    background-color: white;
+    border-radius: 2px;
+    display: block;
+    height: 3px;
+    margin: 4px 0;
+    width: 25px;
+  }
+  
+  /* Estilos responsivos */
+  @media (max-width: 968px) {
+    .navbar-menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        background-color: #333;
+    }
+  
+    .navbar-menu.is-active {
+        display: flex;
+    }
+  
+    .navbar-item {
+        padding: 1rem;
+        text-align: center;
+    }
+  
+    .navbar-burger {
+        display: flex;
+    }
+  }

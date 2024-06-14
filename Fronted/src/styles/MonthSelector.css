@@ -1,0 +1,23 @@
+.month-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+  
+  .month-selector button {
+    padding: 10px;
+    margin: 0 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .month-selector span {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+  
