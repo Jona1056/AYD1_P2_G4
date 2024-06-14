@@ -7,6 +7,12 @@ import VistaEmail from './pages/CorreoCancelado';
 
 import Doctores from './pages/Doctor'
 import Horario from './pages/horarios';
+import VistaHorariosMedico from './pages/HorariosMedico';
+import Doctores from './pages/Doctor'
+import Horario from './pages/horarios';
+import VistaHistorialMedico from './pages/HistorialCitasMedico';
+import VistaPerfilMedico from './pages/EditarMedico';
+
 function App() {
   return (
     <>
@@ -19,6 +25,9 @@ function App() {
           <Route path='/Email' element={<VistaEmail/>} />
           <Route path='/Doctores' element={<Doctores />} />
           <Route path='/Horario' element={<Horario />} />
+          <Route path='/horarios' element={<VistaHorariosMedico/>} />
+          <Route path='/historial-citas' element={<VistaHistorialMedico/>} />
+          <Route path='/actualizar-perfil' element={<VistaPerfilMedico/>} />
         </Routes>
       </Router>
     </>
