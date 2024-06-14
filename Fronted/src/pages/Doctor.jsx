@@ -24,6 +24,7 @@ const Doctores = () => {
   }, [id_usuario]);
 
   const GoHorarios = (id_doctor) => () => {
+    console.log(id_doctor)
     navigate("/Horario", { state: { id_doctor} });
   };
 
