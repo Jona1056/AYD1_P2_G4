@@ -19,19 +19,20 @@ const Navbar1 = () => {
     <nav className="navbar">
       <div className="navbar-brand">PeliFlix</div>
       <div className={`navbar-menu ${isOpen ? "is-active" : ""}`}>
-        <div className="navbar-item" onClick={() => navigateTo("/catalogo")}>
-          Catalogo
+        <div className="navbar-item" onClick={() => navigateTo("/doctores")}>
+          Dcctores
         </div>
-        <div className="navbar-item" onClick={() => navigateTo("/AlquilerUsuario")}>
-          Alquileres
+        <div className="navbar-item" onClick={() => navigateTo("/CitasUsuario")}>
+          Citas
         </div>
-        <div className="navbar-item" onClick={() => navigateTo("/historial")}>
-          Historial
+        <div className="navbar-item" onClick={() => navigateTo("/CitasHistorialUsuario")}>
+          Historial Citas
         </div>
-        <div className="navbar-item" onClick={() => navigateTo("/perfil")}>
-          Editar Perfil
+        <div className="navbar-item" onClick={() => navigateTo("/PerfilUsuario")}>
+          Perfil
         </div>
-        <div className="navbar-item" onClick={() => navigateTo("/login")}>
+     
+        <div className="navbar-item" onClick={() => navigateTo("/")}>
           Cerrar Sesion
         </div>
 
