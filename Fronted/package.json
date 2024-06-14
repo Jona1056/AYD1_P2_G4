@@ -13,7 +13,10 @@
     "@iconscout/react-unicons": "^2.0.2",
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
+<<<<<<< HEAD
+=======
     "mdb-react-ui-kit": "^8.0.0",
+>>>>>>> develop
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.2",
     "react-dom": "^18.2.0",
