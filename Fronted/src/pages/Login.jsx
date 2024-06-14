@@ -1,7 +1,14 @@
-
 import '../styles/login.css'; // Asegúrate de tener tus estilos CSS importados correctamente
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 const Login = () => {
+  const navigate = useNavigate();
+
+  const handleDoctor = () => {
+      navigate('/GestionCitas')
+  };
+
   return (
     <div className="container-login">
       <div className="screen">
@@ -24,12 +31,12 @@ const Login = () => {
               <input type="password" className="login__input" placeholder="Contraseña" />
             </div>
             <button className="button login__submit">
-              <span className="button__text">Ingresar</span>
+              <span className="button__text" onClick={handleDoctor}>Ingresar</span>
               <i className="button__icon fas fa-chevron-right"></i>
             </button>
           </form>
           <div className="social-login">
-          <Link to="/register">Crea tu cuenta</Link>
+          <br/><Link to="/register">Crea tu cuenta</Link>
            
           </div>
         </div>
