@@ -13,13 +13,30 @@ class Horario {
     return rows.map(row => new Horario(row.DiaSemana, row.HoraInicio, row.HoraFin, row.MedicoID));
   }
 
-  static async createHorario(diaSemana, horaInicio, horaFin, medicoId) {
+  static async getHorarioDoctorDia(medicoId, diaSemana) {
+    const [rows] = await db.query('SELECT * FROM HorariosMedicos WHERE MedicoID = ? AND DiaSemana = ?', [medicoId, diaSemana]);
+    return rows.map(row => new Horario(row.DiaSemana, row.HoraInicio, row.HoraFin, row.MedicoID));
+  }
+  
+
+  static async createHorario(medicoId, horaInicio, horaFin, dia) {
     try {
-      const result = await db.query('INSERT INTO HorariosMedicos(DiaSemana, HoraInicio, HoraFin, MedicoID) VALUES(?, ?, ?, ?)', [diaSemana, horaInicio, horaFin, medicoId]);
-      return true;
+      const [rows] = await db.query('SELECT * FROM HorariosMedicos WHERE MedicoID = ? AND DiaSemana = ? AND HoraInicio = ? AND HoraFin = ?', [medicoId, dia, horaInicio, horaFin]);
+      if (rows.length > 0) {
+        return { success: false, message: 'Horario ya registrado' };
+      }
+      
+      await db.query('INSERT INTO HorariosMedicos(DiaSemana, HoraInicio, HoraFin, MedicoID) VALUES(?, ?, ?, ?)', [dia, horaInicio, horaFin, medicoId]);
+      return { success: true, message: 'Horario creado con éxito' };
     } catch (error) {
-      return false;
+      return { success: false, message: 'Error al crear el horario', error };
     }
+  }
+
+  static async getHorarioPorDia(diaSemana) {
+
+    const [rows] = await db.query('SELECT * FROM HorariosMedicos WHERE DiaSemana = ? ', [diaSemana, medicoId]);
+    return rows.map(row => new Horario(row.DiaSemana, row.HoraInicio, row.HoraFin, row.MedicoID));
   }
 
   static async deleteHorario(diaSemana, medicoId) {
