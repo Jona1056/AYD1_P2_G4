@@ -1,0 +1,18 @@
+.text-title {
+    font-family: "Shadows Into Light", cursive;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 2rem;
+}
+
+.navbar-items {
+    font-family: "Shadows Into Light", cursive;
+    font-weight: 400;
+    font-style: bold;
+    font-size: 2rem;
+}
+
+.navbar-logo {
+    height: 40px; /* Ajusta según el tamaño deseado */
+    margin-right: 10px; /* Espacio entre el logo y el texto */
+}
