@@ -8,8 +8,8 @@ import VistaEmail from './pages/CorreoCancelado';
 import Doctores from './pages/Doctor'
 import Horario from './pages/horarios';
 import VistaHorariosMedico from './pages/HorariosMedico';
-import Doctores from './pages/Doctor'
-import Horario from './pages/horarios';
+
+
 import VistaHistorialMedico from './pages/HistorialCitasMedico';
 import VistaPerfilMedico from './pages/EditarMedico';
 

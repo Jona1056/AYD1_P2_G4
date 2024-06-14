@@ -59,8 +59,8 @@ class Usuario {
   }
 
   static async getAllDoctorSinCita(id_usuario) {
-    const medico = await db.query('SELECT U.* FROM Usuarios AS U LEFT JOIN Citas AS C ON U.ID = C.MedicoId AND C.PacienteID = ? WHERE U.Rol = "Medico" AND C.ID IS NULL', [id_usuario]);
-    return new Usuario(medico.Nombre, medico.Apellido, medico.Genero, medico.Correo, medico.Contrasena, medico.Rol, medico.Foto, medico.FechaNacimiento, medico.Especialidad, medico.DireccionClinica, medico.ID);
+    const [rows] = await db.query('SELECT U.* FROM Usuarios AS U LEFT JOIN Citas AS C ON U.ID = C.MedicoId AND C.PacienteID = ? WHERE U.Rol = "Medico" AND C.ID IS NULL', [id_usuario]);
+    return rows.map(row => new Usuario(row.Nombre, row.Apellido, row.Genero, row.Correo, row.Contrasena, row.Rol, row.Foto, row.FechaNacimiento, row.Especialidad, row.DireccionClinica, row.ID));
   }
 
   static async getMedicoById(id_Usuario) {
