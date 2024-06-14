@@ -1,27 +1,29 @@
 
 import '../styles/MonthSelector.css';
 
-const meses = [
-    'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-    'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
-  ];
-  
-  const MonthSelector = ({ currentMonth, setCurrentMonth }) => {
-    const handlePreviousMonth = () => {
-      setCurrentMonth((currentMonth + 11) % 12);
-    };
-  
-    const handleNextMonth = () => {
-      setCurrentMonth((currentMonth + 1) % 12);
-    };
-  
-    return (
-      <div className="month-selector">
-        <button onClick={handlePreviousMonth}>Anterior</button>
-        <span>{meses[currentMonth]}</span>
-        <button onClick={handleNextMonth}>Siguiente</button>
-      </div>
-    );
-  }
-  
-  export default MonthSelector;
+
+
+const months = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'
+];
+
+const MonthSelector = ({ currentMonth, setCurrentMonth }) => {
+  const handlePrevMonth = () => {
+    setCurrentMonth((currentMonth + 11) % 12);
+  };
+
+  const handleNextMonth = () => {
+    setCurrentMonth((currentMonth + 1) % 12);
+  };
+
+  return (
+    <div>
+      <button onClick={handlePrevMonth}>Previous</button>
+      <span>{months[currentMonth]}</span>
+      <button onClick={handleNextMonth}>Next</button>
+    </div>
+  );
+}
+
+export default MonthSelector;

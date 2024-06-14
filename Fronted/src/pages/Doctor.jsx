@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/Doctores.css"; // Asegúrate de tener este archivo CSS
-
+import { useNavigate } from "react-router-dom";
 const Doctores = () => {
+  const navigate = useNavigate();
   const [doctores, setDoctores] = useState([]);
   const id_usuario = sessionStorage.getItem("id_usuario");
 
@@ -22,6 +23,10 @@ const Doctores = () => {
     fetchDoctorData();
   }, [id_usuario]);
 
+  const GoHorarios = (id_doctor) => () => {
+    navigate("/Horario", { state: { id_doctor} });
+  };
+
   return (
     <div className="Doctores-div">
       {doctores.length > 0 ? (
@@ -38,7 +43,7 @@ const Doctores = () => {
             ></div>
 
             <h1 className="doctor">{`${doctor.Nombre} ${doctor.Apellido}`}</h1>
-            <button className="info-doctor">Horarios</button>
+            <button className="info-doctor" onClick={GoHorarios(doctor.ID)}>Horarios</button>
             <footer>
               <div className="likes">
                 <p>
