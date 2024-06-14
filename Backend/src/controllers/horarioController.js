@@ -11,17 +11,16 @@ exports.getHorarios = async (req, res) => {
 }
 
 exports.createHorario = async (req, res) => {
-  const { MedicoID, HoraInicio, HoraFin, DiasSemana } = req.body;
+  const { MedicoID, HoraInicio, HoraFin, dia} = req.body;
   try {
-    for (const Dias of DiasSemana) {
-      const result = await Horario.createHorario(Dias, HoraInicio, HoraFin, MedicoID);
-      if (!result) {
-        return res.status(400).json({ message: 'Error al crear el horario', error: error });
+      const result = await Horario.createHorario( MedicoID,HoraInicio, HoraFin,dia);
+      if (!result.success) {
+        return res.status(400).json({ message: '[ERROR] '+result.message});
       }
-    }
     res.status(201).json({ message: 'Horario creado con exito' });
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error' });
+
+    res.status(500).json({ message: error });
   }
 }
 
@@ -39,5 +38,14 @@ exports.deleteHorario = async (req, res) => {
     res.status(200).json({ message: 'Horario eliminado con exito' });
   } catch (error) {
     res.status(500).json({ message: 'Internal server error' });
+  }
+}
+exports.getHorarioDoctorDia = async (req, res) => {
+  const { dia, medicoID } = req.params;
+  try {
+    const horarios = await Horario.getHorarioDoctorDia(medicoID, dia);
+    return res.status(200).json(horarios);
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error', error });
   }
 }
