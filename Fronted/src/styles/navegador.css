@@ -1,15 +1,9 @@
 .text-title {
-    font-family: "Shadows Into Light", cursive;
-    font-weight: bold;
-    font-style: normal;
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 
 .navbar-items {
-    font-family: "Shadows Into Light", cursive;
-    font-weight: 400;
-    font-style: bold;
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 
 .navbar-logo {

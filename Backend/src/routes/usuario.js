@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require('express')
 const router = express.Router();
 const usuarioController = require('../controllers/usuarioController');
 
@@ -8,6 +8,8 @@ router.delete('/delete/:id_usuario', usuarioController.deleteUsuario);
 router.put('/update/:correo', usuarioController.updateUsuario);
 router.get('/doctoresSinCita/:id_usuario', usuarioController.getDoctorSinCita);
 router.post('/doctoresSinCitaEspecialidad/:id_usuario', usuarioController.getDoctorSinCitaEspecialidad);
+router.get('/medico/:id_usuario', usuarioController.getMedicoById);
+router.get('/paciente/:id_usuario', usuarioController.getUsuarioById);
 /*
 Para consultar un medico por especialidad se debe enviar un json con el siguiente formato:
 {
