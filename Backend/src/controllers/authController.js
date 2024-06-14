@@ -8,6 +8,7 @@ exports.login = async (req, res) => {
     if (!usuario) {
       return res.status(401).json({ message: 'Correo o contraseña incorrectos' });
     }
+   
     res.status(201).json({ message: 'Inicio de sesion exitoso', id_usuario: usuario.ID, rol: usuario.Rol });
   } catch (error) {
     res.status(500).json({ message: 'Error al iniciar sesion' });
