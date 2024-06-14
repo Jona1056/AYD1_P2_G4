@@ -18,7 +18,7 @@ class Usuario {
 
   static async getAll() {
     const [rows] = await db.query('SELECT * FROM Usuarios');
-    return rows.map(row => new Usuario(row.Nombre, row.Apellido, row.Genero, row.Correo, row.Contrasena, row.Rol, row.Foto, row.FechaNacimiento, row.Especialidad, row.DireccionClinica));
+    return rows.map(row => new Usuario(row.Nombre, row.Apellido, row.Genero, row.Correo, row.Contrasena, row.Rol, row.Foto, row.FechaNacimiento, row.Especialidad, row.DireccionClinica, row.ID));
   }
   static async createUsuario(nombre, apellido, genero, correo, contrasena, rol, foto, fechaNacimiento, especialidad, direccionClinica) {
     const hashedPassword = await bcrypt.hash(contrasena, 10);
@@ -56,6 +56,17 @@ class Usuario {
       return usuario;
     }
     return null;
+  }
+
+  static async getAllDoctorSinCita(id_usuario) {
+    const [rows] = await db.query('SELECT U.* FROM Usuarios AS U LEFT JOIN Citas AS C ON U.ID = C.MedicoId AND C.PacienteID = ? WHERE U.Rol = "Medico" AND C.ID IS NULL', [id_usuario]);
+    return rows.map(row => new Usuario(row.Nombre, row.Apellido, row.Genero, row.Correo, row.Contrasena, row.Rol, row.Foto, row.FechaNacimiento, row.Especialidad, row.DireccionClinica, row.ID));
+  }
+
+
+  static async getDoctorSinCitaEspecialidad(id_usuario, especialidad) {
+    const [rows] = await db.query('SELECT U.* FROM Usuarios AS U LEFT JOIN Citas AS C ON U.ID = C.MedicoID AND C.PacienteID = ? WHERE U.Rol = "Medico" AND C.ID IS NULL AND U.Especialidad IN (?)', [id_usuario, especialidad]);
+    return rows.map(row => new Usuario(row.Nombre, row.Apellido, row.Genero, row.Correo, row.Contrasena, row.Rol, row.Foto, row.FechaNacimiento, row.Especialidad, row.DireccionClinica, row.ID));
   }
 }
 
