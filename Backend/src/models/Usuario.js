@@ -59,7 +59,7 @@ class Usuario {
   }
 
   static async getAllDoctorSinCita(id_usuario) {
-    const [rows] = await db.query('SELECT DISTINCT U.* FROM Usuarios AS U LEFT JOIN Citas As C ON U.ID = C.MedicoID AND C.PacienteID = ? WHERE U.Rol = "Medico" AND (C.ID IS NULL OR C.Estado IN ("Cancelada por Paciente","Cancelada por Medico"))', [id_usuario]);
+    const [rows] = await db.query('SELECT DISTINCT U.* FROM Usuarios AS U LEFT JOIN Citas As C ON U.ID = C.MedicoID AND C.PacienteID = ? WHERE U.Rol = "Medico" AND (C.ID IS NULL OR C.Estado IN ("Cancelada por Paciente","Cancelada por Medico","Atendida"))', [id_usuario]);
     return rows.map(row => new Usuario(row.Nombre, row.Apellido, row.Genero, row.Correo, row.Contrasena, row.Rol, row.Foto, row.FechaNacimiento, row.Especialidad, row.DireccionClinica, row.ID));
   }
 
@@ -75,7 +75,7 @@ class Usuario {
   }
 
   static async getDoctorSinCitaEspecialidad(id_usuario, especialidad) {
-    const [rows] = await db.query('SELECT DISTINCT U.* FROM Usuarios AS U LEFT JOIN Citas As C ON U.ID = C.MedicoID AND C.PacienteID = ? WHERE U.Rol = "Medico" AND (C.ID IS NULL OR C.Estado IN ("Cancelada por Paciente","Cancelada por Medico")) AND U.Especialidad IN (?)', [id_usuario, especialidad]);
+    const [rows] = await db.query('SELECT DISTINCT U.* FROM Usuarios AS U LEFT JOIN Citas As C ON U.ID = C.MedicoID AND C.PacienteID = ? WHERE U.Rol = "Medico" AND (C.ID IS NULL OR C.Estado IN ("Cancelada por Paciente","Cancelada por Medico","Atendida" )) AND U.Especialidad IN (?)', [id_usuario, especialidad]);
     return rows.map(row => new Usuario(row.Nombre, row.Apellido, row.Genero, row.Correo, row.Contrasena, row.Rol, row.Foto, row.FechaNacimiento, row.Especialidad, row.DireccionClinica, row.ID));
   }
 }
