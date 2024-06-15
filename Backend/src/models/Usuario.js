@@ -63,6 +63,16 @@ class Usuario {
     return rows.map(row => new Usuario(row.Nombre, row.Apellido, row.Genero, row.Correo, row.Contrasena, row.Rol, row.Foto, row.FechaNacimiento, row.Especialidad, row.DireccionClinica, row.ID));
   }
 
+  static async getMedicoById(id_Usuario) {
+    console.log(id_Usuario);
+    const [rows] = await db.query('SELECT * FROM Usuarios WHERE ID = ? AND Rol = "Medico"', [id_Usuario]);
+    return rows.map(row => new Usuario(row.Nombre, row.Apellido, row.Genero, row.Correo, row.Contrasena, row.Rol, row.Foto, row.FechaNacimiento, row.Especialidad, row.DireccionClinica, row.ID));
+  }
+
+  static async getUsuarioById(id_Usuario) {
+    const [rows] = await db.query('SELECT * FROM Usuarios WHERE ID = ? AND Rol = "Paciente"', [id_Usuario]);
+    return rows.map(row => new Usuario(row.Nombre, row.Apellido, row.Genero, row.Correo, row.Contrasena, row.Rol, row.Foto, row.FechaNacimiento, row.Especialidad, row.DireccionClinica, row.ID));
+  }
 
   static async getDoctorSinCitaEspecialidad(id_usuario, especialidad) {
     const [rows] = await db.query('SELECT U.* FROM Usuarios AS U LEFT JOIN Citas AS C ON U.ID = C.MedicoID AND C.PacienteID = ? WHERE U.Rol = "Medico" AND C.ID IS NULL AND U.Especialidad IN (?)', [id_usuario, especialidad]);
