@@ -2,28 +2,28 @@ import "../styles/Registro.css"; // Asegúrate de tener tus estilos CSS importad
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import swal from 'sweetalert';
-
+import axios from 'axios';
+import {  useNavigate } from 'react-router-dom';
 const Register = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    nombre: "",
-    apellido: "",
-    genero: "",
-    email: "",
-    contraseña: "",
-    tipoUsuario: "",
-    fechaNacimiento: "",
-    foto: "",
-    especialidad: "",
-    direccion: "",
+    Nombre: "",
+    Apellido: "",
+    Genero: "",
+    Correo: "",
+    Contrasena: "",
+    Rol: "",
+    FechaNacimiento: "",
+    Foto: "",
+    Especialidad: "",
+    DireccionClinica: "",
   });
 
   const validarContrasena = (contrasena) => {
     // Verificar que tenga al menos 8 caracteres
-    if (contrasena.length < 8) {
-      return false;
-    }
+    if (contrasena.length < 8) {return false;}
     
-    // Verificar que contenga al menos una mayúscula y un número
+
     const tieneMayuscula = /[A-Z]/.test(contrasena);
     const tieneNumero = /[0-9]/.test(contrasena);
     
@@ -37,17 +37,30 @@ const Register = () => {
       [name]: value,
     });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Aquí puedes hacer lo que quieras con los datos del formulario
     //verificar que no existan campos vacios
-    const contrasena = formData.contraseña;
+    const contrasena = formData.Contrasena;
   
     // Validar la contraseña
     if (!validarContrasena(contrasena)) {
       // Mostrar un SweetAlert de error si la contraseña no cumple con los requisitos
       swal("Error", "La contraseña debe tener al menos 8 caracteres, una mayúscula y un número", "error");
       return;
+    }
+    if (formData.Rol === "medico"){
+      formData.FechaNacimiento = null;
+    }
+
+    try {
+      const response = await axios.post(`http://localhost:3000/api/usuarios/add`, formData);
+      console.log('Respuesta del servidor:', response.data);
+      navigate("/");
+      // Aquí puedes manejar la respuesta del servidor, por ejemplo, mostrar un mensaje de éxito al usuario
+    } catch (error) {
+      swal("Error", "No se pudo crear el usuario", "error");
+      // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje de error al usuario
     }
     console.log(formData);
   };
@@ -65,8 +78,8 @@ const Register = () => {
                 type="text"
                 className="login__input"
                 placeholder="Nombre"
-                name="nombre"
-                value={formData.nombre}
+                name="Nombre"
+                value={formData.Nombre}
                 onChange={handleInputChange}
                 required
               />
@@ -74,15 +87,15 @@ const Register = () => {
                 type="text"
                 className="login__input"
                 placeholder="Apellido"
-                name="apellido"
-                value={formData.apellido}
+                name="Apellido"
+                value={formData.Apellido}
                 onChange={handleInputChange}
                 required
               />
               <select
                 className="login__input"
-                name="genero"
-                value={formData.genero}
+                name="Genero"
+                value={formData.Genero}
                 onChange={handleInputChange}
                 required
               >
@@ -95,8 +108,8 @@ const Register = () => {
                 type="email"
                 className="login__input"
                 placeholder="Email"
-                name="email"
-                value={formData.email}
+                name="Correo"
+                value={formData.Correo}
                 onChange={handleInputChange}
                 required
               />
@@ -105,8 +118,8 @@ const Register = () => {
                 type="password"
                 className="login__input"
                 placeholder="Contraseña"
-                name="contraseña"
-                value={formData.contraseña}
+                name="Contrasena"
+                value={formData.Contrasena}
                 onChange={handleInputChange}
                 required
               />
@@ -114,8 +127,8 @@ const Register = () => {
               <select
                 className="login__input"
                 onChange={handleInputChange}
-                name="tipoUsuario"
-                value={formData.tipoUsuario}
+                name="Rol"
+                value={formData.Rol}
                 required
               >
                 <option value="">Selecciona un tipo de usuario</option>
@@ -123,60 +136,60 @@ const Register = () => {
                 <option value="medico">Médico</option>
               </select>
 
-              {formData.tipoUsuario === "paciente" && (
+              {formData.Rol === "paciente" && (
                 <input
                   type="date"
                   className="login__input"
                   placeholder="Fecha Nacimiento"
-                  name="fechaNacimiento"
-                  value={formData.fechaNacimiento}
+                  name="FechaNacimiento"
+                  value={formData.FechaNacimiento}
                   onChange={handleInputChange}
                   required
                 />
               )}
 
-              {formData.tipoUsuario === "paciente" && (
+              {formData.Rol === "paciente" && (
                 <input
                   type="text"
                   className="login__input"
                   placeholder="Foto"
-                  name="foto"
-                  value={formData.foto}
+                  name="Foto"
+                  value={formData.Foto}
                   onChange={handleInputChange}
                 />
               )}
 
-              {formData.tipoUsuario === "medico" && (
+              {formData.Rol === "medico" && (
                 <input
                   type="text"
                   className="login__input"
                   placeholder="Especialidad"
-                  name="especialidad"
-                  value={formData.especialidad}
+                  name="Especialidad"
+                  value={formData.Especialidad}
                   onChange={handleInputChange}
                   required
                 />
               )}
 
-              {formData.tipoUsuario === "medico" && (
+              {formData.Rol === "medico" && (
                 <input
                   type="text"
                   className="login__input"
                   placeholder="Direccion Clinica"
-                  name="direccion"
-                  value={formData.direccion}
+                  name="DireccionClinica"
+                  value={formData.DireccionClinica}
                   onChange={handleInputChange}
                   required
                 />
               )}
 
-              {formData.tipoUsuario === "medico" && (
+              {formData.Rol === "medico" && (
                 <input
                   type="text"
                   className="login__input"
                   placeholder="Foto"
-                  name="foto"
-                  value={formData.foto}
+                  name="Foto"
+                  value={formData.Foto}
                   onChange={handleInputChange}
                   required
                 />

@@ -1,0 +1,60 @@
+.container-custom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ajusta la altura según tus necesidades */
+    flex-direction: column; /* Alinea los elementos en columna */
+    padding: 20px; /* Añade un espacio interno al contenedor */
+}
+
+.email-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.email-card {
+    width: 100%;
+    max-width: 600px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    padding: 20px;
+}
+
+.email-header {
+    margin-bottom: 20px;
+}
+
+.email-header p {
+    margin-bottom: 5px;
+}
+
+.email-header strong {
+    font-weight: bold;
+}
+
+.mb-4 {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.button-container {
+    text-align: right;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.button-container button {
+    margin-left: 10px;
+}
