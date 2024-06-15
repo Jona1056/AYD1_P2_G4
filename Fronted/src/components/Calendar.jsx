@@ -2,7 +2,7 @@ import '../styles/Calendar.css';
 import React, { useState } from 'react';
 import { Button, Modal, Table } from 'react-bootstrap';
 import axios from 'axios';
-
+import moment from 'moment';
 const diasEnMes = (mes) => {
   return new Date(2024, mes + 1, 0).getDate();
 };
@@ -17,6 +17,17 @@ const Calendar = ({ month, horarios, doctorId }) => {
   const [selectedDate, setSelectedDate] = useState('');
   const [dayName, setDayName] = useState('');
   const [schedules, setSchedules] = useState([]);
+  const [motivos, setMotivos] = useState({}); // Estado para almacenar los motivos ingresados
+  const id_usuario = sessionStorage.getItem("id_usuario");
+  const idDoctor = doctorId;
+  // Función para manejar el cambio en el campo de entrada del motivo
+  const handleMotivoChange = (event, horaInicio) => {
+    const { value } = event.target;
+    setMotivos(prevState => ({
+      ...prevState,
+      [horaInicio]: value // Asigna el motivo ingresado al estado, utilizando la hora de inicio como clave
+    }));
+  };
 
   const dias = Array.from({ length: diasEnMes(month) }, (_, i) => i + 1);
 
@@ -25,16 +36,12 @@ const Calendar = ({ month, horarios, doctorId }) => {
     const nombreDia = fecha.toLocaleDateString('es-ES', { weekday: 'long' }).charAt(0).toUpperCase() + fecha.toLocaleDateString('es-ES', { weekday: 'long' }).slice(1);
     setSelectedDate(`${dia}/${mes + 1}/2024`);
     setDayName(nombreDia);
-
+    const capitalizedDia = nombreDia.charAt(0).toUpperCase() + nombreDia.slice(1);
     try {
       // Simulating an API call response for now.
-      const response = {
-        data: [
-          { startTime: "08:00 AM", endTime: "09:00 AM" },
-          { startTime: "10:00 AM", endTime: "11:00 AM" },
-          { startTime: "01:00 PM", endTime: "02:00 PM" }
-        ]
-      };
+      console.log(capitalizedDia)
+      const response = await axios.get(`http://localhost:3000/api/horarios/getHorarioDoctorDia/${capitalizedDia}/${idDoctor}`);
+
       setSchedules(response.data);
       setModalIsOpen(true);
     } catch (error) {
@@ -47,10 +54,31 @@ const Calendar = ({ month, horarios, doctorId }) => {
   };
 
   const handleAgendar = (startTime, endTime) => {
-    console.log(`Agendar: ${selectedDate}, ${startTime}, ${endTime}, Doctor ID: ${doctorId}`);
-    // Aquí puedes manejar la lógica para agendar la cita
+    if (!motivos[startTime]) {
+      alert("Debe ingresar un motivo para la cita")
+      return;
+    }
+    const formattedDate = moment(selectedDate).format('YYYY-MM-DD');
+    const data = {
+      pacienteID: id_usuario,
+      medicoID: idDoctor,
+      fecha: formattedDate,
+      hora: startTime,
+      motivo: motivos[startTime],
+      estado: 'Programada',
+      direccionClinica: 'La dirección de la clínica' // Puedes obtener esta información de algún lugar, o proporcionarla como un valor fijo
+    };
+  
+    axios.post('http://localhost:3000/api/citas/add', data)
+      .then(response => {
+        console.log('Cita agendada exitosamente:', response.data);
+        // Aquí puedes manejar la respuesta si es necesario
+      })
+      .catch(error => {
+        console.error('Error al agendar la cita:', error);
+        // Aquí puedes manejar el error si es necesario
+      });
   };
-
   return (
     <div className="calendar">
       <h1>{month + 1}</h1>
@@ -96,21 +124,25 @@ const Calendar = ({ month, horarios, doctorId }) => {
                 <tr>
                   <th>Hora de Inicio</th>
                   <th>Hora Final</th>
+                  <th>Motivo</th>
                   <th>Acción</th>
                 </tr>
               </thead>
               <tbody>
+          
                 {schedules.map((schedule, index) => (
                   <tr key={index}>
-                    <td>{schedule.startTime}</td>
-                    <td>{schedule.endTime}</td>
+                    <td>{schedule.HoraInicio}</td>
+                    <td>{schedule.HoraFin}</td>
+                    <input type="text"  placeholder="Motivo"  value={motivos[schedule.HoraInicio] || ''} required onChange={(event) => handleMotivoChange(event, schedule.HoraInicio)}/>
                     <td>
-                      <Button variant="primary" onClick={() => handleAgendar(schedule.startTime, schedule.endTime,selectedDate)}>
+                      <Button variant="primary" onClick={() => handleAgendar(schedule.HoraInicio, schedule.HoraFin,selectedDate,idDoctor)}>
                         Agendar
                       </Button>
                     </td>
                   </tr>
                 ))}
+                
               </tbody>
             </Table>
           </div>

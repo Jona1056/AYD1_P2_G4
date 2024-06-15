@@ -2,6 +2,7 @@ const Cita = require("../models/Citas");
 
 exports.createCita = async (req, res) => {
   const { pacienteID, medicoID, fecha, hora, motivo, estado,direccionClinica } = req.body;
+ 
   try {
     const result = await Cita.createCita(
       pacienteID,
@@ -17,6 +18,7 @@ exports.createCita = async (req, res) => {
     }
     res.status(201).json({ message: result.message });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: error });
   }
 };
