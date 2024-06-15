@@ -19,12 +19,16 @@ class Citas {
             if (rows.length > 0) {
                 return { success: false, message: 'Esta cita ya está ocupada'};
             }
+            console.log(pacienteID, medicoID, fecha, hora, motivo, estado,direccionClinica);
 
             await db.query('INSERT INTO Citas(PacienteID, MedicoID, Fecha, Hora, Motivo, Estado,direccionClinica) VALUES(?, ?, ?, ?, ?, ?,?)', [pacienteID, medicoID, fecha, hora, motivo, estado,direccionClinica ]);
             return { success: true, message: 'Cita programada con éxito' };
         } catch (error) {
+            console.log(error);
             return { success: false, message: 'Error al crear la cita', error };
         }
     }
 
 }
+
+module.exports = Citas;
