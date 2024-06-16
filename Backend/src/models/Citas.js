@@ -27,4 +27,13 @@ class Citas {
         }
     }
 
+    static async obtenerCita(pacienteID, fecha, hora, motivo, direccionClinica) {
+        try {
+            const [rows] = await db.query('SELECT * FROM Citas WHERE PacienteID = ? AND Fecha = ? AND Hora = ? AND Motivo = ?  AND direccionClinica = ?', [pacienteID, fecha, hora, motivo, direccionClinica]);
+            return rows;
+        } catch (error) {
+            return null;
+        }
+    }
+
 }

@@ -4,12 +4,14 @@ import Register from './pages/Registro';
 import VistaMedico from './pages/GestionCitasMedico';
 import VistaCitas from './pages/Citas';
 import VistaEmail from './pages/CorreoCancelado';
+import CitasUsuario from './pages/CitasUsuario';
+import CitasHistorialUsuario from './pages/CitasHistorialUsuario';
 
 import Doctores from './pages/Doctor'
 import Horario from './pages/horarios';
 import VistaHorariosMedico from './pages/HorariosMedico';
-import Doctores from './pages/Doctor'
-import Horario from './pages/horarios';
+
+
 import VistaHistorialMedico from './pages/HistorialCitasMedico';
 import VistaPerfilMedico from './pages/EditarMedico';
 
@@ -28,6 +30,8 @@ function App() {
           <Route path='/horarios' element={<VistaHorariosMedico/>} />
           <Route path='/historial-citas' element={<VistaHistorialMedico/>} />
           <Route path='/actualizar-perfil' element={<VistaPerfilMedico/>} />
+          <Route path='/CitasUsuario' element={<CitasUsuario/>} />
+          <Route path='/CitasHistorialUsuario' element={<CitasHistorialUsuario/>} />
         </Routes>
       </Router>
     </>
