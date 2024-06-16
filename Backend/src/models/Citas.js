@@ -39,6 +39,14 @@ class Citas {
         }
     }
 
+    static async actualizarEstadoCita(idCita, estado) {
+        try {
+            await db.query('UPDATE Citas SET Estado = ? WHERE id = ?', [estado, idCita]);
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
 
     static async obtenerCita(pacienteID, fecha, hora, motivo, direccionClinica) {
         try {

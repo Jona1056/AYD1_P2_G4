@@ -34,6 +34,19 @@ exports.obtenerCitasProgramadas = async (req, res) => {
   }
 }
 
+exports.actualizarEstadoCita = async (req, res) => {
+  const { idCita, estado } = req.body;
+  try {
+    const result = await Cita.actualizarEstadoCita(idCita, estado);
+    if (!result) {
+      return res.status(400).json({ message: "[ERROR] No se pudo actualizar el estado de la cita" });
+    }
+    res.status(201).json({ message: "Estado de la cita actualizado con éxito" });
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+}
+
 exports.obtenerCita = async (req, res) => {
   const { pacienteID, fecha, hora, motivo, direccionClinica } = req.body;
   try {
