@@ -19,13 +19,26 @@ class Citas {
             if (rows.length > 0) {
                 return { success: false, message: 'Esta cita ya está ocupada'};
             }
-
-            await db.query('INSERT INTO Citas(PacienteID, MedicoID, Fecha, Hora, Motivo, Estado,direccionClinica) VALUES(?, ?, ?, ?, ?, ?,?)', [pacienteID, medicoID, fecha, hora, motivo, estado,direccionClinica ]);
+            const direccionClinicaCliente = await db.query('SELECT direccionClinica FROM Medicos WHERE id = ?', [medicoID]);
+        
+            await db.query('INSERT INTO Citas(PacienteID, MedicoID, Fecha, Hora, Motivo, Estado,direccionClinica) VALUES(?, ?, ?, ?, ?, ?,?)', [pacienteID, medicoID, fecha, hora, motivo, estado,direccionClinicaCliente ]);
             return { success: true, message: 'Cita programada con éxito' };
         } catch (error) {
             return { success: false, message: 'Error al crear la cita', error };
         }
     }
+
+
+    static async obtenerCitasProgramadas(idUsuario) {
+        try{    
+            const [rows] = await db.query('SELECT * FROM Citas WHERE PacienteID = ? AND Estado = "Programada"', [idUsuario]);
+
+            return rows;
+        }catch(error){
+            return null;
+        }
+    }
+
 
     static async obtenerCita(pacienteID, fecha, hora, motivo, direccionClinica) {
         try {
@@ -37,3 +50,5 @@ class Citas {
     }
 
 }
+
+module.exports = Citas;

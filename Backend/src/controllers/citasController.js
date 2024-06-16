@@ -21,6 +21,19 @@ exports.createCita = async (req, res) => {
   }
 };
 
+exports.obtenerCitasProgramadas = async (req, res) => {
+  const { idUsuario } = req.body;
+  try {
+    const result = await Cita.obtenerCitasProgramadas(idUsuario);
+    if (!result) {
+      return res.status(400).json({ message: "[ERROR] No se encontraron citas programadas" });
+    }
+    res.status(201).json( result );
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+}
+
 exports.obtenerCita = async (req, res) => {
   const { pacienteID, fecha, hora, motivo, direccionClinica } = req.body;
   try {
