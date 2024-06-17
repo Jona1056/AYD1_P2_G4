@@ -17,10 +17,10 @@ const Navbar1 = () => {
 
   return (
     <nav className="navbar">
-      <div className="navbar-brand">PeliFlix</div>
+      <div className="navbar-brand">Medicare</div>
       <div className={`navbar-menu ${isOpen ? "is-active" : ""}`}>
         <div className="navbar-item" onClick={() => navigateTo("/doctores")}>
-          Dcctores
+          Doctores
         </div>
         <div className="navbar-item" onClick={() => navigateTo("/CitasUsuario")}>
           Citas
