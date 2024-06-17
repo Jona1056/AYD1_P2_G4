@@ -56,6 +56,7 @@ const Register = () => {
     try {
       const response = await axios.post(`http://localhost:3000/api/usuarios/add`, formData);
       console.log('Respuesta del servidor:', response.data);
+      swal("Exito", "Usuario Creado Correctamente", "success");
       navigate("/");
       // Aquí puedes manejar la respuesta del servidor, por ejemplo, mostrar un mensaje de éxito al usuario
     } catch (error) {
