@@ -2,7 +2,9 @@ import '../styles/Calendar.css';
 import React, { useState } from 'react';
 import { Button, Modal, Table } from 'react-bootstrap';
 import axios from 'axios';
+import swal from 'sweetalert';
 import moment from 'moment';
+import {  useNavigate } from 'react-router-dom';
 const diasEnMes = (mes) => {
   return new Date(2024, mes + 1, 0).getDate();
 };
@@ -20,6 +22,7 @@ const Calendar = ({ month, horarios, doctorId }) => {
   const [motivos, setMotivos] = useState({}); // Estado para almacenar los motivos ingresados
   const id_usuario = sessionStorage.getItem("id_usuario");
   const idDoctor = doctorId;
+  const navigate = useNavigate();
   // Función para manejar el cambio en el campo de entrada del motivo
   const handleMotivoChange = (event, horaInicio) => {
     const { value } = event.target;
@@ -34,7 +37,7 @@ const Calendar = ({ month, horarios, doctorId }) => {
   const fetchSchedule = async (dia, mes, idDoctor) => {
     const fecha = new Date(2024, mes, dia);
     const nombreDia = fecha.toLocaleDateString('es-ES', { weekday: 'long' }).charAt(0).toUpperCase() + fecha.toLocaleDateString('es-ES', { weekday: 'long' }).slice(1);
-    setSelectedDate(`${dia}/${mes + 1}/2024`);
+    setSelectedDate(`2024/${mes+1}/${dia}`);
     setDayName(nombreDia);
     const capitalizedDia = nombreDia.charAt(0).toUpperCase() + nombreDia.slice(1);
     try {
@@ -55,26 +58,42 @@ const Calendar = ({ month, horarios, doctorId }) => {
 
   const handleAgendar = (startTime, endTime) => {
     if (!motivos[startTime]) {
-      alert("Debe ingresar un motivo para la cita")
+      swal({
+        title: '¡Alto!',
+        text: 'Debes agregar un motivo en la cita',
+        icon: 'error'
+    });
       return;
     }
-    const formattedDate = moment(selectedDate).format('YYYY-MM-DD');
+
     const data = {
       pacienteID: id_usuario,
       medicoID: idDoctor,
-      fecha: formattedDate,
+      fecha: selectedDate,
       hora: startTime,
       motivo: motivos[startTime],
       estado: 'Programada',
       direccionClinica: 'La dirección de la clínica' // Puedes obtener esta información de algún lugar, o proporcionarla como un valor fijo
     };
   
+    console.log(selectedDate)
     axios.post('http://localhost:3000/api/citas/add', data)
       .then(response => {
+        swal({
+          title: '¡Listo!',
+          text: 'La cita ha sido agendada exitosamente',
+          icon: 'success'
+      });
+      navigate("/doctores")
         console.log('Cita agendada exitosamente:', response.data);
         // Aquí puedes manejar la respuesta si es necesario
       })
       .catch(error => {
+        swal({
+          title: '¡Error!',
+          text: 'No puedes agendar a esta hora, ya que está ocupada. Por favor, selecciona otro horario.',
+          icon: 'error'
+      });
         console.error('Error al agendar la cita:', error);
         // Aquí puedes manejar el error si es necesario
       });
