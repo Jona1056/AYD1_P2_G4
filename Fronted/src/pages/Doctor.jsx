@@ -14,6 +14,7 @@ const Doctores = () => {
         const response = await axios.get(
           `http://localhost:3000/api/usuarios/doctoresSinCita/${id_usuario}`
         );
+        setDoctores("")
         setDoctores(response.data);
         console.log("Datos del doctor:", response.data);
       } catch (error) {

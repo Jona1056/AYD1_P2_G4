@@ -16,6 +16,7 @@ exports.createUsuario = async (req, res) => {
     const nuevoUsuario = await Usuario.createUsuario(Nombre, Apellido, Genero, Correo, Contrasena, Rol, Foto, FechaNacimiento, Especialidad, DireccionClinica);
     res.status(201).json({ message: 'Usuario creado exitosamente' });
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: error.message })
   }
 }
