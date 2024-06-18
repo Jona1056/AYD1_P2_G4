@@ -26,43 +26,81 @@ ___
 
 ## Rutas utilizadas en el Backend
 
+En estas dos imagenes tenemos lo siguiente:
+
+- Se realizo una estructura de como organizamos el backend tales como configuraciones para la base de datos del proyecto, controladores para realizar consultas, modelos para realizar inserciones, actualizaciones, etc. rutas para las peticiones ya que estamos manejando una API para realizar el proyecto.
+
+- En la siguiente captura es un esquema que se manejo la api en este caso las rutas y estas se consultan por lado de los controladores que se muestra en la estructura de la carpeta "Backend".
+
 Carpeta Backend
 <center>
 
-![](img/backend.png){width=600}
-![](img/rutas.png){width=600}
-</center>
-
-
-Este es un ejemplo breve de como aplicamos nuestras rutas para poder trabajar por separado cada una de ellas.
-
-<center>
-
-![](img/alquileres.png){width=600}
+![](img/carpeta-backend.png)
+![](img/rutas-backend.png)
 </center>
 
 
 ### Rutas utilizadas en el Frontend
 ___
 
+En ese apartado tenemos lo siguiente:
+
+- Contamos con una carpeta assets para el almacenamiento de imagenes ya sean para colocarlos como logotipos, iconos de usuario, fondos de pantalla llamativos, etc.
+
+- Una carpeta components en donde realizamos la programación para darle funcionamiento a los componentes tales como formularios, barras de navegacion, botones, etc.
+
+- Una carpeta pages para tener las vistas de una manera muy organizada utilizando herramientas como useNavigate, para poder navegar entre vistas utilizando eventos.
+
+- Una carpeta styles para manejar estilos y decoraciones a las vistas esto con el fin de tener una interfaz responsiva y atractiva para el usuario que se dirija a nuestro sitio.
+
 Carpeta Frontend
 <center>
 
-![](img/frontend.png){width=600}
+![](img/carpeta-frontend-1.png)
 </center>
-
-Codigo donde se desarrollo las 2 barras de navegacion, el 1ero corresponde a usuario y el 2do al administrador.
 
 <center>
 
-![](img/user.png){width=600}
-![](img/admin.png){width=600}
+![](img/carpeta-frontend-2.png)
 </center>
 
+<center>
+
+![](img/carpeta-frontend-3.png)
+</center>
+
+-----
+
+En esta seccion contamos con 2 navegadores, dado a que manejamos 2 roles tales como doctores y pacientes, el enfoque que le damos a las vistas es de un navegador en general, pero para fines del proyecto y de poder determinar los roles se realizaron 2
+
+---
+
+---
+Navegador 1
+<center>
+
+![](img/navegador-1.png)
+</center>
+---
+
+---
+Navegador 2
+<center>
+
+![](img/navegador-2.png)
+</center>
+---
+
+---
 Codigo donde se realizan las diversas validaciones al momento de registrar un usuario nuevo.
 <center>
 
-![](img/registro.png){width=600}
+![](img/logica-registro-1.png)
+</center>
+
+<center>
+
+![](img/logica-registro-2.png)
 </center>
 
 ### Base de datos
@@ -109,11 +147,17 @@ CREATE TABLE HorariosMedicos (
 );
 
 ```
-Peliculas ingresadas.
-<center>
 
-![](img/peliculas.png){width=600}
-</center>
+---
+
+---
+
+
+---
+
+# Diagramas
+
+En este apartado se mostraran los diagramas que nos estipula el proyecto ya que el objetivo de este es dar un planteamiento del problema y también realizar los requerimientos que se necesitan para poder comenzar con estructuras, rutas, peticiones, operaciones relacionales, etc. He aquí alguna de ellas.
 
 ## Diagrama Entidad-Relacion
 ___
@@ -146,56 +190,58 @@ ___
 
 ## Mockups
 
+En este apartado se discutio con el equipo para determinar como seran las vistas del proyecto a lo largo del desarrollo, y cabe aclarar de que estos son diseños `tentativos` ya que estas pueden estar sujetos a cambios durante su desarrollo.
+
 <center>
 
 ### Login
-![](img/login.jpg){width=600}
+![](img/login.jpg)
 </center>
 <center>
 
 ### Registro
-![](img/registrar.jpg){width=600}
+![](img/registrar.jpg)
 </center>
 <center>
 
-![](img/iniusu.jpg){width=600}
+![](img/iniusu.jpg)
 </center>
 <center>
 
-![](img/inidoc.jpg){width=600}
+![](img/inidoc.jpg)
 </center>
 <center>
 
-![](img/editarperfil.jpg){width=600}
+![](img/editarperfil.jpg)
 </center>
 
 
 <center>
 
-![](img/gestioncitas.jpg){width=600}
+![](img/gestioncitas.jpg)
 </center>
 <center>
 
-![](img/gestioncitasdoc.jpg){width=600}
+![](img/gestioncitasdoc.jpg)
 </center>
 <center>
 
-![](img/cistasac.jpg){width=600}
+![](img/cistasac.jpg)
 </center>
 <center>
 
-![](img/historial.jpg){width=600}
+![](img/historial.jpg)
 </center>
 <center>
 
-![](img/historialcitasdoc.jpg){width=600}
+![](img/historialcitasdoc.jpg)
 </center>
 <center>
 
-![](img/horariosdoc.jpg){width=600}
+![](img/horariosdoc.jpg)
 </center>
 <center>
 
 ### Correo
-![](img/correo.jpg){width=600}
+![](img/correo.jpg)
 </center>

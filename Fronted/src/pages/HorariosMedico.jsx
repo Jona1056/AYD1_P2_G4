@@ -2,32 +2,41 @@ import { useState } from "react";
 import { Button, Form, Container, Row, Col, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import '../styles/vista-4.css'; // Importa el archivo CSS
-
+import swal from 'sweetalert';
+import axios from "axios"
 const VistaHorariosMedico = () => {
     const navigate = useNavigate();
-    const [startTime, setStartTime] = useState('');
-    const [endTime, setEndTime] = useState('');
-    const [day, setDay] = useState('Lunes');
-
+    const [horaInicio, sethoraInicio] = useState('');
+    const [horaFin, sethoraFin] = useState('');
+    const [dia, setdia] = useState('Lunes');
+    const medicoId = sessionStorage.getItem("id_usuario");
     const handleBack = () => {
         navigate('/GestionCitas')
     }
 
-    const handleEstablecer = () => {
+    const handleEstablecer = async () => {
         // Aquí puedes manejar la lógica para establecer un nuevo horario
         console.log('Horario establecido:', {
-            day,
-            startTime,
-            endTime
+            dia,
+            horaInicio,
+            horaFin
         });
+        try {
+            const response = await axios.post('http://localhost:3000/api/horarios/add', { medicoId, horaInicio, horaFin, dia });
+            swal("Exito", "Horario agregado correctamente", "success");
+            console.log('Respuesta del servidor:', response.data);
+          } catch (error) {
+            swal("Error", "No se pudo agregar el horario", "error");
+            console.error("Error al obtener los datos del doctor:", error);
+          }
     };
 
     const handleActualizar = () => {
         // Aquí puedes manejar la lógica para actualizar un horario existente
         console.log('Horario actualizado:', {
-            day,
-            startTime,
-            endTime
+            dia,
+            horaInicio,
+            horaFin
         });
     };
 
@@ -43,7 +52,7 @@ const VistaHorariosMedico = () => {
                         <Row className="mb-3">
                             <Form.Group as={Col}>
                                 <Form.Label>Día de la Semana</Form.Label>
-                                <Form.Control as="select" className="select-day" value={day} onChange={e => setDay(e.target.value)}>
+                                <Form.Control as="select" className="select-dia" value={dia} onChange={e => setdia(e.target.value)}>
                                     <option value="Lunes">Lunes</option>
                                     <option value="Martes">Martes</option>
                                     <option value="Miércoles">Miércoles</option>
@@ -59,8 +68,8 @@ const VistaHorariosMedico = () => {
                                 <input
                                     type="time"
                                     className="form-control input-time"
-                                    value={startTime}
-                                    onChange={e => setStartTime(e.target.value)}
+                                    value={horaInicio}
+                                    onChange={e => sethoraInicio(e.target.value)}
                                 />
                             </Form.Group>
                             <Form.Group as={Col}>
@@ -68,8 +77,8 @@ const VistaHorariosMedico = () => {
                                 <input
                                     type="time"
                                     className="form-control input-time"
-                                    value={endTime}
-                                    onChange={e => setEndTime(e.target.value)}
+                                    value={horaFin}
+                                    onChange={e => sethoraFin(e.target.value)}
                                 />
                             </Form.Group>
                         </Row>
