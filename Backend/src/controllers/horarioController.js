@@ -11,9 +11,9 @@ exports.getHorarios = async (req, res) => {
 }
 
 exports.createHorario = async (req, res) => {
-  const { MedicoID, HoraInicio, HoraFin, dia} = req.body;
+  const { medicoId, horaInicio, horaFin, dia} = req.body;
   try {
-      const result = await Horario.createHorario( MedicoID,HoraInicio, HoraFin,dia);
+      const result = await Horario.createHorario( medicoId,horaInicio, horaFin,dia);
       if (!result.success) {
         return res.status(400).json({ message: '[ERROR] '+result.message});
       }
