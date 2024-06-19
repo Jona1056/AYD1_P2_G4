@@ -188,6 +188,25 @@ ___
 ![](img/despliegue.jpg){width=600}
 </center>
 
+## Caso de uso de Alto Nivel
+
+<center>
+
+![](img/caso-uso-1.png)
+</center>
+
+<center>
+
+![](img/caso-uso-2.png)
+</center>
+
+## Diagrama de Caso de Uso de Alto Nivel
+
+<center>
+
+![](img/diagrama-caso-uso.png)
+</center>
+
 ## Mockups
 
 En este apartado se discutio con el equipo para determinar como seran las vistas del proyecto a lo largo del desarrollo, y cabe aclarar de que estos son diseños `tentativos` ya que estas pueden estar sujetos a cambios durante su desarrollo.
