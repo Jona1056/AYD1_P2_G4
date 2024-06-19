@@ -171,21 +171,21 @@ ___
 ___
 <center>
 
-![](img/clases.jpg){width=600}
+![](img/diagrama-clases.png)
 </center>
 
 ## Diagrama Componentes
 ___
 <center>
 
-![](img/componentes.jpg){width=600}
+![](img/diagrama-componentes.png)
 </center>
 
 ## Diagrama Despliegue
 ___
 <center>
 
-![](img/despliegue.jpg){width=600}
+![](img/diagrama-despliegue.png)
 </center>
 
 ## Caso de uso de Alto Nivel
