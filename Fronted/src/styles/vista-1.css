@@ -1,0 +1,70 @@
+.text-title-custom {
+    text-align: center;
+    font-family: "Shadows Into Light", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Estilo para el contenedor de las cards */
+.catalogo-citas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Espacio entre las cards */
+    padding: 20px; /* Padding del contenedor para alejar las cards de los bordes */
+  }
+  
+/* Estilo para las cards de citas */
+.cita-card {
+    width: 300px; /* Ancho fijo de la card */
+    height: auto; /* Altura automática según el contenido */
+    border-radius: 12px; /* Borde redondeado de la card */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: transform 0.2s; /* Transición suave al hacer hover */
+}
+  
+.cita-card:hover {
+    transform: translateY(-5px); /* Efecto de levantamiento al hacer hover */
+}
+  
+/* Estilo para el contenedor de la imagen de usuario */
+.cita__usuario {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* Espacio inferior entre la imagen de usuario y el nombre */
+}
+  
+/* Estilo para la imagen de usuario dentro de la card */
+.cita__usuario img {
+    width: 50px; /* Ancho de la imagen de usuario */
+    height: 50px; /* Altura de la imagen de usuario */
+    border-radius: 50%; /* Borde redondeado para la imagen */
+    object-fit: cover; /* Ajuste para cubrir la imagen dentro del contenedor */
+    margin-right: 15px; /* Espacio derecho entre la imagen y el texto */
+}
+  
+/* Estilo para el nombre de usuario dentro de la card */
+.cita__usuario span {
+    font-weight: bold; /* Texto en negrita */
+    font-size: 1.1rem; /* Tamaño del texto */
+}
+  
+/* Estilo para el título de la cita dentro de la card */
+.card-title {
+    font-size: 1.2rem; /* Tamaño del texto del título */
+    margin-bottom: 0.5rem; /* Margen inferior del título */
+}
+  
+/* Estilo para el texto de la cita dentro de la card */
+.card-text {
+    font-size: 1rem; /* Tamaño del texto de la cita */
+}
+  
+/* Estilo para el botón de "Detalle de la cita" dentro de la card */
+.btn-dark {
+    font-size: 1rem; /* Tamaño del texto del botón */
+    padding: 0.5rem 1rem; /* Padding del botón */
+}
