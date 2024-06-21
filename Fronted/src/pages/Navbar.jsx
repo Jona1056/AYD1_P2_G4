@@ -23,6 +23,7 @@ const NavigationBar = () => {
                 <Navbar.Toggle onClick={toggleMenu} aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse className={isOpen ? "is-active" : ""}>
                     <Nav className="me-auto">
+                    <Nav.Link className='navbar-items' onClick={() => navigateTo('/GestionCitas')}>Gestion De Citas</Nav.Link>
                         <Nav.Link className='navbar-items' onClick={() => navigateTo('/horarios')}>Horarios</Nav.Link>
                         <Nav.Link className='navbar-items' onClick={() => navigateTo('/historial-citas')}>Historial de Citas</Nav.Link>
                         <Nav.Link className='navbar-items' onClick={() => navigateTo('/actualizar-perfil')}>Actualizar Perfil</Nav.Link>

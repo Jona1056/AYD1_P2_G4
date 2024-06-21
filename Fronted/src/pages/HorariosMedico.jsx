@@ -1,18 +1,17 @@
 import { useState } from "react";
 import { Button, Form, Container, Row, Col, Card } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+
 import '../styles/vista-4.css'; // Importa el archivo CSS
 import swal from 'sweetalert';
 import axios from "axios"
+import NavigationBar from "./Navbar";
 const VistaHorariosMedico = () => {
-    const navigate = useNavigate();
+
     const [horaInicio, sethoraInicio] = useState('');
     const [horaFin, sethoraFin] = useState('');
     const [dia, setdia] = useState('Lunes');
     const medicoId = sessionStorage.getItem("id_usuario");
-    const handleBack = () => {
-        navigate('/GestionCitas')
-    }
+  
 
     const handleEstablecer = async () => {
         // Aquí puedes manejar la lógica para establecer un nuevo horario
@@ -41,9 +40,12 @@ const VistaHorariosMedico = () => {
     };
 
     return (
+        <div>
+             <NavigationBar/>
+       
         <Container className="d-flex justify-content-center align-items-center vh-100">
             <div className="position-absolute top-0 end-0 m-3">
-                <Button variant="dark" onClick={handleBack}>Regresar</Button>
+                
             </div>
             <Card className="p-4 mb-4">
                 <Card.Body>
@@ -92,6 +94,7 @@ const VistaHorariosMedico = () => {
                 </Card.Body>
             </Card>
         </Container>
+        </div>
     );
 };
 

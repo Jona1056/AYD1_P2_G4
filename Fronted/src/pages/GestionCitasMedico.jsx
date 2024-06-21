@@ -26,6 +26,34 @@ const VistaMedico = () => {
         fetchCitas();
     }, []);
 
+    const handleCancelar = async (idCita) => {
+        try {
+  
+ 
+            const estado = "Cancelada por Medico"
+            const response = await axios.put('http://localhost:3000/api/citas/updateState', { idCita, estado});
+            console.log(response.data);
+            swal({
+                title: '¡Listo!',
+                text: 'La cita ha sido cancelada',
+                icon: 'success',
+                buttons: {
+                    confirm: 'OK',
+                },
+            }).then((result) => {
+      
+               
+                if (result) {
+                    // Recargar la página
+                    window.location.reload();
+                }
+            });
+            console.log("Datos de las citas:", response.data);
+        } catch (error) {
+            console.error("Error al atender cita:", error);
+        }
+    }
+
 
     const handleAtender = async (idCita) => {
         // Aquí podrías agregar lógica adicional para marcar la cita como atendida en una aplicación real
@@ -82,8 +110,10 @@ const VistaMedico = () => {
                                 Motivo:                <td>{cita.Motivo}</td>
                                 <br/>
                             </Card.Text>
+                            <br/>
                             <Button variant="success" className="mr-2"   onClick={() => handleAtender(cita.ID)}>Atender</Button>
                             <br/>
+                            <Button variant="danger" className="mr-2"   onClick={() => handleCancelar(cita.ID)}>Cancelar</Button>
                             {/* <Button variant="danger" onClick={handleCancelar}>Cancelar</Button> */}
                         
                         </Card.Body>
