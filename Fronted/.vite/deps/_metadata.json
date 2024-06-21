@@ -1,43 +1,67 @@
 {
-  "hash": "3576456a",
+  "hash": "c50102dc",
   "configHash": "62326c1b",
-  "lockfileHash": "7aa6fbe9",
-  "browserHash": "4398bae8",
+  "lockfileHash": "fcb57956",
+  "browserHash": "b602a9ca",
   "optimized": {
     "react": {
       "src": "../../node_modules/react/index.js",
       "file": "react.js",
-      "fileHash": "d2509f2d",
+      "fileHash": "7507fc0f",
       "needsInterop": true
     },
     "react-dom/client": {
       "src": "../../node_modules/react-dom/client.js",
       "file": "react-dom_client.js",
-      "fileHash": "cb6b6b7f",
+      "fileHash": "3ab89966",
       "needsInterop": true
     },
     "react-router-dom": {
       "src": "../../node_modules/react-router-dom/dist/index.js",
       "file": "react-router-dom.js",
-      "fileHash": "19b098be",
+      "fileHash": "4036cc45",
+      "needsInterop": false
+    },
+    "react-bootstrap": {
+      "src": "../../node_modules/react-bootstrap/esm/index.js",
+      "file": "react-bootstrap.js",
+      "fileHash": "2b954980",
+      "needsInterop": false
+    },
+    "axios": {
+      "src": "../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "591ad50a",
+      "needsInterop": false
+    },
+    "date-fns": {
+      "src": "../../node_modules/date-fns/index.mjs",
+      "file": "date-fns.js",
+      "fileHash": "4d0921ad",
       "needsInterop": false
     },
     "sweetalert": {
       "src": "../../node_modules/sweetalert/dist/sweetalert.min.js",
       "file": "sweetalert.js",
-      "fileHash": "f86b030e",
+      "fileHash": "e617304d",
       "needsInterop": true
+    },
+    "moment": {
+      "src": "../../node_modules/moment/dist/moment.js",
+      "file": "moment.js",
+      "fileHash": "c996386d",
+      "needsInterop": false
     }
   },
   "chunks": {
-    "chunk-HCGKX5ED": {
-      "file": "chunk-HCGKX5ED.js"
+    "chunk-YEGEUSQR": {
+      "file": "chunk-YEGEUSQR.js"
     },
-    "chunk-WNPTCGAH": {
-      "file": "chunk-WNPTCGAH.js"
+    "chunk-7JZAKNLV": {
+      "file": "chunk-7JZAKNLV.js"
     },
-    "chunk-5WRI5ZAA": {
-      "file": "chunk-5WRI5ZAA.js"
+    "chunk-2TUXWMP5": {
+      "file": "chunk-2TUXWMP5.js"
     }
   }
 }
