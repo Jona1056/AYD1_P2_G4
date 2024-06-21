@@ -2,46 +2,37 @@ import { Table, Container, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Navbar1 from "../components/navbar";
 import "../styles/vista-1.css"
-
+import  { useState, useEffect } from 'react';
+import axios from 'axios';
+import { format } from "date-fns"; // Importa la función format de date-fns
 const VistaHistorialMedico = () => {
     const navigate = useNavigate();
+    const [Citas, setCitas] = useState([]);
+ 
+    const idUsuario = sessionStorage.getItem("id_usuario");
 
     const handleBack = () => {
         navigate('/doctores')
     }
 
+    useEffect(() => {
+        const fetchCitasHistorial = async () => {
+          try {
+            const response = await axios.get(
+                `http://localhost:3000/api/citas/returncitashistorial/${idUsuario}`,
+                { idUsuario }
+              );
+            setCitas(response.data);
+            console.log("Datos del doctor:", response.data);
+          } catch (error) {
+            console.error("Error al obtener los datos del doctor:", error);
+          }
+        };
+    
+        fetchCitasHistorial();
+    }, [idUsuario]);
     // Ejemplo de datos de citas, puedes reemplazarlo con datos reales
-    const citas = [
-        {
-            paciente: "Juan Pérez",
-            doctor: "Doctor Goku",
-            fecha: "2023-06-14",
-            hora: "10:00 AM",
-            motivo: "Dolor de cabeza",
-            direccion: "Enrique Segoviano",
-            estado: "atendido"
-        },
-        {
-            paciente: "María García",
-            doctor: "Doctor Mario",
-            fecha: "2023-06-15",
-            hora: "11:00 AM",
-            motivo: "Se me subio la bilirrubina",
-            direccion: "Roberto Gómez Bolaños",
-            estado: "atendido"
-        },
-        {
-            paciente: "Son Goku",
-            doctor: "Doctor Chapatin",
-            fecha: "2023-06-16",
-            hora: "01:00 PM",
-            motivo: "Mal de amores",
-            direccion: "Me llaman Romeo",
-            estado: "Cita cancelada"
-        },
-
-        // Agrega más citas según sea necesario
-    ];
+  
 
     return (
         <div>
@@ -51,7 +42,7 @@ const VistaHistorialMedico = () => {
                 <Table striped bordered hover>
                     <thead>
                         <tr>
-                            <th>Paciente</th>
+                           
                             <th>Doctor</th>
                             <th>Fecha</th>
                             <th>Hora</th>
@@ -61,15 +52,15 @@ const VistaHistorialMedico = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {citas.map((cita, index) => (
+                        {Citas.map((cita, index) => (
                             <tr key={index}>
-                                <td>{cita.paciente}</td>
-                                <td>{cita.doctor}</td>
-                                <td>{cita.fecha}</td>
-                                <td>{cita.hora}</td>
-                                <td>{cita.motivo}</td>
-                                <td>{cita.direccion}</td>
-                                <td>{cita.estado}</td>
+                             
+                                <td>{cita.nombre_medico} {cita.apellido_medico}</td>
+                                <td>{format(cita.Fecha, "dd/MM/yyyy")}</td>
+                                <td>{cita.Hora}</td>
+                                <td>{cita.Motivo}</td>
+                                <td>{cita.direccionClinica}</td>
+                                <td>{cita.Estado}</td>
                             </tr>
                         ))}
                     </tbody>

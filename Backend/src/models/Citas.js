@@ -34,6 +34,7 @@ class Citas {
 
 
     static async obtenerCitasProgramadas(idUsuario) {
+        
         try {
             const query = `
                 SELECT 
@@ -67,6 +68,41 @@ class Citas {
         }
     }
 
+    static async obtenerCitasHistorial(idUsuario) {
+    
+        try {
+            const query = `
+                SELECT 
+                    Citas.*, 
+                    Pacientes.nombre AS nombre_paciente, 
+                    Pacientes.apellido AS apellido_paciente,
+                    Medicos.nombre AS nombre_medico, 
+                    Medicos.apellido AS apellido_medico
+                FROM 
+                    Citas
+                JOIN 
+                    Usuarios AS Pacientes 
+                ON 
+                    Citas.PacienteID = Pacientes.id
+                JOIN 
+                    Usuarios AS Medicos 
+                ON 
+                    Citas.MedicoID = Medicos.id
+                WHERE 
+                    Citas.PacienteID = ? 
+                AND 
+                    Citas.Estado != "Programada"
+            `;
+    
+            const [rows] = await db.query(query, [idUsuario]);
+    
+            return rows;
+        } catch (error) {
+            console.error("Error al obtener las citas no programadas:", error);
+            return null;
+        }
+    }
+
     static async obtenerCitasProramadasPorMedico(idMedico) {
         try {
             const query = `
@@ -90,6 +126,40 @@ class Citas {
                     Citas.MedicoID = ? 
                 AND 
                     Citas.Estado = "Programada"
+            `;
+    
+            const [rows] = await db.query(query, [idMedico]);
+    
+            return rows;
+        } catch (error) {
+            console.error("Error al obtener las citas programadas:", error);
+            return null;
+        }
+    }
+
+    static async obtenerCitasProramadasPorMedicoHistorial(idMedico) {
+        try {
+            const query = `
+                SELECT 
+                    Citas.*, 
+                    Pacientes.nombre AS nombre_paciente, 
+                    Pacientes.apellido AS apellido_paciente,
+                    Medicos.nombre AS nombre_medico, 
+                    Medicos.apellido AS apellido_medico
+                FROM 
+                    Citas
+                JOIN 
+                    Usuarios AS Pacientes 
+                ON 
+                    Citas.PacienteID = Pacientes.id
+                JOIN 
+                    Usuarios AS Medicos 
+                ON 
+                    Citas.MedicoID = Medicos.id
+                WHERE 
+                    Citas.MedicoID = ? 
+                AND 
+                    Citas.Estado != "Programada"
             `;
     
             const [rows] = await db.query(query, [idMedico]);
