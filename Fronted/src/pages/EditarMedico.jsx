@@ -1,14 +1,10 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+
 import { Button, Form, Container, Card, Row, Col } from "react-bootstrap";
 import "../styles/vista-6.css"; // Importa el archivo CSS
-
+import NavigationBar from "./Navbar";
 const EditarPerfilMedico = () => {
-    const navigate = useNavigate();
 
-    const handleBack = () => {
-        navigate('/GestionCitas')
-    }
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -16,8 +12,12 @@ const EditarPerfilMedico = () => {
     };
 
     return (
+        <div>
+              <NavigationBar/>
+       
+     
         <Container className="mt-5">
-            <Button variant="dark" className="btn-regresar" onClick={handleBack}>Regresar</Button>
+         
             <h1 className="text-center mb-4">Editar Perfil Médico</h1>
             <Card>
                 <Card.Body>
@@ -122,6 +122,7 @@ const EditarPerfilMedico = () => {
                 </Card.Body>
             </Card>
         </Container>
+        </div>
     );
 };
 

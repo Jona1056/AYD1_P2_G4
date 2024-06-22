@@ -1,39 +1,46 @@
 import { Table, Container, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "../styles/vista-5.css"
-
+import NavigationBar from "./Navbar";
+import  { useState, useEffect } from 'react';
+import { format } from "date-fns"; // Importa la función format de date-fns
+import axios from 'axios';
 const VistaHistorialMedico = () => {
+  
     const navigate = useNavigate();
-
+    const [Citas, setCitas] = useState([]);
+ 
+    const idUsuario = sessionStorage.getItem("id_usuario");
     const handleBack = () => {
         navigate('/GestionCitas')
     }
+    useEffect(() => {
+        const fetchCitasHistorial = async () => {
+          try {
+            const response = await axios.get(
+                `http://localhost:3000/api/citas/returncitashistorialdoctor/${idUsuario}`,
+                { idUsuario }
+              );
+            setCitas(response.data);
+            console.log("Datos del doctor:", response.data);
+          } catch (error) {
+            console.error("Error al obtener los datos del doctor:", error);
+          }
+        };
+    
+        fetchCitasHistorial();
+    }, [idUsuario]);
 
     // Ejemplo de datos de citas, puedes reemplazarlo con datos reales
-    const citas = [
-        {
-            fecha: "2023-06-14",
-            hora: "10:00 AM",
-            paciente: "Juan Pérez",
-            estado: "Atendido"
-        },
-        {
-            fecha: "2023-06-15",
-            hora: "11:00 AM",
-            paciente: "María García",
-            estado: "Cancelado por el paciente"
-        },
-        {
-            fecha: "2023-06-16",
-            hora: "01:00 PM",
-            paciente: "Carlos Sánchez",
-            estado: "Cancelado por el médico"
-        },
+   
         // Agrega más citas según sea necesario
-    ];
+
 
     return(
+        <div>
+        <NavigationBar/>
         <Container className="mt-5">
+             
             <h1 className="text-center-custom mb-4">Historial de Citas del Médico</h1>
             <Table striped bordered hover>
                 <thead>
@@ -45,12 +52,12 @@ const VistaHistorialMedico = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {citas.map((cita, index) => (
+                    {Citas.map((cita, index) => (
                         <tr key={index}>
-                            <td>{cita.fecha}</td>
-                            <td>{cita.hora}</td>
-                            <td>{cita.paciente}</td>
-                            <td>{cita.estado}</td>
+                          <td>{format(cita.Fecha, "dd/MM/yyyy")}</td>
+                            <td>{cita.Hora}</td>
+                            <td>{cita.nombre_paciente} {cita.apellido_paciente}</td>
+                            <td>{cita.Estado}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -59,6 +66,7 @@ const VistaHistorialMedico = () => {
                 <Button variant="dark" onClick={handleBack}>Regresar</Button>
             </div>
         </Container>
+        </div>
     )
 }
 
