@@ -81,7 +81,6 @@ Navegador 1
 
 ![](img/navegador-1.png)
 </center>
----
 
 ---
 Navegador 2
@@ -89,7 +88,6 @@ Navegador 2
 
 ![](img/navegador-2.png)
 </center>
----
 
 ---
 Codigo donde se realizan las diversas validaciones al momento de registrar un usuario nuevo.
@@ -105,7 +103,9 @@ Codigo donde se realizan las diversas validaciones al momento de registrar un us
 
 ### Base de datos
 ___
-Script de la base de datos utilizado.
+En este apartado esta el script de la base de datos que utilizamos para el proyecto, el gestor que se uso es MySql.
+
+
 ```
 CREATE DATABASE PROYECTOAYD2;
 USE PROYECTOAYD2;
@@ -171,21 +171,42 @@ ___
 ___
 <center>
 
-![](img/clases.jpg){width=600}
+![](img/diagrama-clases.png)
 </center>
 
 ## Diagrama Componentes
 ___
 <center>
 
-![](img/componentes.jpg){width=600}
+![](img/diagrama-componentes.png)
 </center>
 
 ## Diagrama Despliegue
 ___
 <center>
 
-![](img/despliegue.jpg){width=600}
+![](img/diagrama-despliegue.png)
+</center>
+
+## Caso de uso de Alto Nivel
+
+
+
+<center>
+
+![](img/caso-uso-1.png)
+</center>
+
+<center>
+
+![](img/caso-uso-2.png)
+</center>
+
+## Diagrama de Caso de Uso de Alto Nivel
+
+<center>
+
+![](img/diagrama-caso-uso.png)
 </center>
 
 ## Mockups

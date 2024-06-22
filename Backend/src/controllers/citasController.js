@@ -37,6 +37,36 @@ exports.obtenerCitasProgramadas = async (req, res) => {
   }
 }
 
+exports.obtenerCitasProgramadasHistorial = async (req, res) => {
+  const { idUsuario } = req.params;
+  console.log(idUsuario);
+  try {
+    const result = await Cita.obtenerCitasHistorial(idUsuario);
+    if (!result) {
+      return res.status(400).json({ message: "[ERROR] No se encontraron citas programadas" });
+    }
+    res.status(201).json( result );
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+}
+
+exports.obtenerCitasProgramadasHistorialMedico = async (req, res) => {
+  const { idUsuario } = req.params;
+  console.log(idUsuario);
+  try {
+    const result = await Cita.obtenerCitasProramadasPorMedicoHistorial(idUsuario);
+    if (!result) {
+      return res.status(400).json({ message: "[ERROR] No se encontraron citas programadas" });
+    }
+    res.status(201).json( result );
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+}
+
+
+
 exports.obtenerCitasPorMedico = async (req, res) => {
   const { idUsuario } = req.body;
 
