@@ -27,8 +27,6 @@ const Navbar1= () => {
                         <Nav.Link className='navbar-items' onClick={() => navigateTo('/CitasUsuario')}>Citas Activas</Nav.Link>
                         <Nav.Link className='navbar-items' onClick={() => navigateTo('/CitasHistorialUsuario')}>Historial Citas</Nav.Link>
                         <Nav.Link className='navbar-items' onClick={() => navigateTo('/PerfilUsuario')}>Perfil</Nav.Link>
-                       
-                        
                     </Nav>
                     <Nav className="ms-auto">
                         <Nav.Link className='navbar-items' onClick={() => navigateTo('/')}>Cerrar Sesión</Nav.Link>
