@@ -37,6 +37,7 @@ exports.deleteUsuario = async (req, res) => {
 exports.updateUsuario = async (req, res) => {
   const { correo } = req.params;
   const { Nombre, Apellido, Genero, Contrasena, Rol, Foto, FechaNacimiento, Especialidad, DireccionClinica } = req.body;
+  
   try {
     const usuarioActualizado = await Usuario.update(Nombre, Apellido, Genero, correo, Contrasena, Rol, Foto, FechaNacimiento, Especialidad, DireccionClinica);
     res.json(usuarioActualizado);
