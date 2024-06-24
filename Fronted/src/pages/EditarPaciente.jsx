@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import swal from "sweetalert";
 import "../styles/vista-6.css"; // Importa el archivo CSS
-import NavigationBar from "./Navbar";
+import Navbar1 from "../components/navbar";
 
 const EditarPerfilPaciente = () => {
     const navigate = useNavigate();
@@ -26,6 +26,12 @@ const EditarPerfilPaciente = () => {
             try {
                 const response = await axios.get(`http://localhost:3000/api/usuarios/paciente/${id_usuario}`);
                 const medicoData = response.data[0];
+                const fechaISO = medicoData.FechaNacimiento;
+                const fecha = new Date(fechaISO);
+                const dia = String(fecha.getDate()).padStart(2, '0');
+                const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+                const anio = fecha.getFullYear();
+                const fechaFormateada = `${anio}-${mes}-${dia}`; // "2001-10-10"
                 setFormData({
                     Nombre: medicoData.Nombre,
                     Apellido: medicoData.Apellido,
@@ -34,7 +40,7 @@ const EditarPerfilPaciente = () => {
                     Contrasena: "",
                     Foto: medicoData.Foto,
                     Rol: medicoData.Rol,
-                    FechaNacimiento: medicoData.FechaNacimiento
+                    FechaNacimiento: fechaFormateada 
                 });
             } catch(error) {
                 console.error('Error fetching medico data: ', error);
@@ -79,12 +85,12 @@ const EditarPerfilPaciente = () => {
 
     return (
         <div>
-              <NavigationBar/>
+              < Navbar1 />
        
      
         <Container className="mt-5">
          
-            <h1 className="text-center mb-4">Editar Perfil Médico</h1>
+            <h1 className="text-center mb-4">Editar Perfil Paciente</h1>
             <Card>
                 <Card.Body>
                     <Form onSubmit={handleSubmit}>
@@ -146,18 +152,7 @@ const EditarPerfilPaciente = () => {
                             </Col>
                         </Row>
                         <Row className="mt-3">
-                            <Col md={6}>
-                                <Form.Group controlId="formPassword">
-                                    <Form.Label>Contraseña</Form.Label>
-                                    <Form.Control 
-                                        type="password" 
-                                        placeholder="Ingresa una contraseña"
-                                        name="Contrasena"
-                                        value={formData.Contrasena}
-                                        onChange={handleInputChange}
-                                    />
-                                </Form.Group>
-                            </Col>
+                    
                             <Col md={6}>
                                 <Form.Group controlId="formRol">
                                     <Form.Label>Rol</Form.Label>
