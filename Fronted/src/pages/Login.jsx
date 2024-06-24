@@ -68,7 +68,7 @@ const Login = () => {
                 name="contrasena"
                 value={formData.contrasena}
                 onChange={handleChange}
-                required
+          
               />
             </div>
             <button type="submit" className="button login__submit">
