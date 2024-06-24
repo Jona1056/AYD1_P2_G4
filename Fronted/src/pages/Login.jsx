@@ -33,10 +33,18 @@ const Login = () => {
           navigate('/doctores');
         }
       }else{
+        setFormData({
+          correo: '',
+          contrasena: ''
+        });
         swal("Error", "Correo o Contraseña incorrectos", "error");
       }
     
     } catch (error) {
+      setFormData({
+        correo: '',
+        contrasena: ''
+      });
       swal("Error", "No se pudo iniciar sesión", "error");
     }
   };

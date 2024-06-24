@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { Button, Table, Form, Container } from "react-bootstrap";
-import Navbar1 from "../components/navbar";
+import NavigationBar from "./Navbar";
 import "../styles/vista-1.css";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
@@ -75,7 +75,7 @@ const ActualizarHorario = () => {
 
     return (
         <div>
-            <Navbar1 />
+            <NavigationBar/>
             <Container className="mt-5">
                 <h1 className="text-center-custom mb-4">Horario de Citas</h1>
                 <Table striped bordered hover>

@@ -1,13 +1,13 @@
 import { Button, Form, Container, Card, Row, Col } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
 import swal from "sweetalert";
 import "../styles/vista-6.css"; // Importa el archivo CSS
 import Navbar1 from "../components/navbar";
 
 const EditarPerfilPaciente = () => {
-    const navigate = useNavigate();
+  
     const [formData, setFormData] = useState({
         Nombre: "",
         Apellido: "",
@@ -76,7 +76,7 @@ const EditarPerfilPaciente = () => {
             const response = await axios.put(`http://localhost:3000/api/usuarios/update/${formData.Correo}`, formData)
             console.log('Respuesta del servidor: ', response.data);
             swal("Exito", "Perfil actualizado correctamente", "success");
-            navigate('/');
+       
         } catch(error) {
             swal("Error", "No se pudo actualizar el perfil", "error");
             console.error("Error updating profile:", error);
