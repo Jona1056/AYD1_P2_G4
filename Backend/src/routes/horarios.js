@@ -8,6 +8,8 @@ router.get('/:id', horariosController.getHorarios);
 router.get('/getHorarioDoctorDia/:dia/:medicoID', horariosController.getHorarioDoctorDia);
 router.post('/add', horariosController.createHorario);
 router.delete('/delete', horariosController.deleteHorario);
+router.put('/update/:medicoID', horariosController.updateHorario);
+
 /*
 Para agregar un horario la estructura Json es la siguiente:
   {
