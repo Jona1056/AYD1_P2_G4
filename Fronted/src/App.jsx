@@ -6,6 +6,7 @@ import VistaCitas from './pages/Citas';
 import VistaEmail from './pages/CorreoCancelado';
 import CitasUsuario from './pages/CitasUsuario';
 import CitasHistorialUsuario from './pages/CitasHistorialUsuario';
+import EditarPerfilPaciente from './pages/EditarPaciente';
 
 import Doctores from './pages/Doctor'
 import Horario from './pages/horarios';
@@ -32,6 +33,7 @@ function App() {
           <Route path='/actualizar-perfil' element={<VistaPerfilMedico/>} />
           <Route path='/CitasUsuario' element={<CitasUsuario/>} />
           <Route path='/CitasHistorialUsuario' element={<CitasHistorialUsuario/>} />
+          <Route path='/PerfilUsuario' element={<EditarPerfilPaciente/>} />
         </Routes>
       </Router>
     </>
