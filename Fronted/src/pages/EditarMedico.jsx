@@ -131,9 +131,9 @@ const EditarPerfilMedico = () => {
                                         onChange={handleInputChange}
                                         required
                                     >
-                                        <option value="Masculino">Masculino</option>
-                                        <option value="Femenino">Femenino</option>
-                                        <option value="Otro">Otro</option>
+                                        <option value="M">Masculino</option>
+                                        <option value="F">Femenino</option>
+                                       
                                     </Form.Control>
                                 </Form.Group>
                             </Col>
