@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button, Alert, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "../styles/vista-2.css"; // Importar el archivo de estilos CSS
