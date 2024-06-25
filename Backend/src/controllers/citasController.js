@@ -111,22 +111,25 @@ exports.actualizarEstadoCita = async (req, res) => {
       return res.status(400).json({ message: "[ERROR] No se pudo actualizar el estado de la cita" });
     }
 
-    const datosPaciente = await Cita.obtenerDatosPacienteIdCita(idCita);
-    const { fechaFormateada, horaFormateada } = convertirFechaHora(datosPaciente.Fecha, datosPaciente.Hora);
-    datosPaciente.Fecha = fechaFormateada;
-    datosPaciente.Hora = horaFormateada;
+    if (estado === "Cancelada por Medico") {
+      const datosPaciente = await Cita.obtenerDatosPacienteIdCita(idCita);
+      const { fechaFormateada, horaFormateada } = convertirFechaHora(datosPaciente.Fecha, datosPaciente.Hora);
+      datosPaciente.Fecha = fechaFormateada;
+      datosPaciente.Hora = horaFormateada;
 
-    sendGridApi.setApiKey(process.env.SENDGRID_API_KEY);
-    console.log(datosPaciente)
+      sendGridApi.setApiKey(process.env.SENDGRID_API_KEY);
+      console.log(datosPaciente)
 
-    const htmlDiseno = cargarPlantillaEmail(datosPaciente, text);
-    const msg = {
-      to: datosPaciente.Correo,
-      from: process.env.SG_EMAIL,
-      subject: "Cancelacion de cita",
-      html: htmlDiseno
+      const htmlDiseno = cargarPlantillaEmail(datosPaciente, text);
+      const msg = {
+        to: datosPaciente.Correo,
+        from: process.env.SG_EMAIL,
+        subject: "Cancelacion de cita",
+        html: htmlDiseno
+      }
+      await sendGridApi.send(msg);
     }
-    await sendGridApi.send(msg);
+
     res.status(201).json({ message: "Estado de la cita actualizado con éxito" });
   } catch (error) {
     console.log(error)
