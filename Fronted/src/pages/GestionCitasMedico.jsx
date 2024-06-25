@@ -5,6 +5,7 @@ import { Card, Button } from "react-bootstrap";
 import axios from 'axios';
 import "../styles/vista-1.css";
 import MySwal from 'sweetalert2';
+import swal from 'sweetalert';
 import { format } from 'date-fns'; // Importa la función format de date-fns
 
 
@@ -76,14 +77,14 @@ const VistaMedico = () => {
       const estado = "Atendida"
       const response = await axios.put('http://localhost:3000/api/citas/updateState', { idCita, estado });
       console.log(response.data);
-      MySwal.fire({
+      swal({
         title: '¡Listo!',
         text: 'La cita ha sido atendida',
         icon: 'success',
         buttons: {
-          confirm: 'OK',
+            confirm: 'OK',
         },
-      }).then((result) => {
+    }).then((result) => {
 
 
         if (result) {
