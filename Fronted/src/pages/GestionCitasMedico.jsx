@@ -41,7 +41,6 @@ const VistaMedico = () => {
         showCancelButton: true
       });
       if (text) {
-        alert(text);
         const estado = "Cancelada por Medico"
         const response = await axios.put('http://localhost:3000/api/citas/updateState', { idCita, estado, text });
         console.log(response.data);
@@ -82,9 +81,9 @@ const VistaMedico = () => {
         text: 'La cita ha sido atendida',
         icon: 'success',
         buttons: {
-            confirm: 'OK',
+          confirm: 'OK',
         },
-    }).then((result) => {
+      }).then((result) => {
 
 
         if (result) {
