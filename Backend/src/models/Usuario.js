@@ -21,9 +21,11 @@ class Usuario {
     return rows.map(row => new Usuario(row.Nombre, row.Apellido, row.Genero, row.Correo, row.Contrasena, row.Rol, row.Foto, row.FechaNacimiento, row.Especialidad, row.DireccionClinica, row.ID));
   }
   static async createUsuario(nombre, apellido, genero, correo, contrasena, rol, foto, fechaNacimiento, especialidad, direccionClinica) {
+    console.log(nombre, apellido, genero, correo, contrasena, rol, foto, fechaNacimiento, especialidad, direccionClinica)
     const hashedPassword = await bcrypt.hash(contrasena, 10);
     const [result] = await db.query('INSERT INTO Usuarios (Nombre, Apellido, Genero, Correo, Contrasena, Rol, Foto, FechaNacimiento, Especialidad, DireccionClinica) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       [nombre, apellido, genero, correo, hashedPassword, rol, foto, fechaNacimiento, especialidad, direccionClinica]);
+    console.log(result);
     return null;
   }
 
@@ -33,9 +35,9 @@ class Usuario {
 
   static async update(nombre, apellido, genero, correo, contrasena, rol, foto, fechaNacimiento, especialidad, direccionClinica) {
     const hashedPassword = await bcrypt.hash(contrasena, 10);
-    await db.query('UPDATE Usuarios SET Nombre = ?, Apellido = ?, Genero = ?, Contrasena = ?, Rol = ?, Foto = ?, FechaNacimiento = ?, Especialidad = ?, DireccionClinica = ? WHERE Correo = ?',
-      [nombre, apellido, genero, hashedPassword, rol, foto, fechaNacimiento, especialidad, direccionClinica, correo]);
-    return new Usuario(nombre, apellido, genero, correo, contrasena, rol, foto, fechaNacimiento, especialidad, direccionClinica);
+    await db.query('UPDATE Usuarios SET Nombre = ?, Apellido = ?, Genero = ?, Rol = ?, Foto = ?, FechaNacimiento = ?, Especialidad = ?, DireccionClinica = ? WHERE Correo = ?',
+      [nombre, apellido, genero, rol, foto, fechaNacimiento, especialidad, direccionClinica, correo]);
+    return new Usuario(nombre, apellido, genero, correo, rol, foto, fechaNacimiento, especialidad, direccionClinica);
   }
 
   static async findByCorreo(correo) {
@@ -59,7 +61,15 @@ class Usuario {
   }
 
   static async getAllDoctorSinCita(id_usuario) {
-    const [rows] = await db.query('SELECT DISTINCT U.* FROM Usuarios AS U LEFT JOIN Citas As C ON U.ID = C.MedicoID AND C.PacienteID = ? WHERE U.Rol = "Medico" AND (C.ID IS NULL OR C.Estado IN ("Cancelada por Paciente","Cancelada por Medico","Atendida"))', [id_usuario]);
+    const [rows] = await db.query(`
+      SELECT DISTINCT U.*
+      FROM Usuarios AS U
+      LEFT JOIN Citas AS C ON U.ID = C.MedicoID AND C.PacienteID = ? AND C.Estado = "Programada"
+      WHERE U.Rol = "Medico"
+      AND C.ID IS NULL;
+  `, [id_usuario]);
+  
+    console.log(rows)
     return rows.map(row => new Usuario(row.Nombre, row.Apellido, row.Genero, row.Correo, row.Contrasena, row.Rol, row.Foto, row.FechaNacimiento, row.Especialidad, row.DireccionClinica, row.ID));
   }
 

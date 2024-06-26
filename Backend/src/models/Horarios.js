@@ -21,14 +21,16 @@ class Horario {
 
   static async createHorario(medicoId, horaInicio, horaFin, dia) {
     try {
+      console.log(medicoId, dia);
       const [rows] = await db.query('SELECT * FROM HorariosMedicos WHERE MedicoID = ? AND DiaSemana = ? AND HoraInicio = ? AND HoraFin = ?', [medicoId, dia, horaInicio, horaFin]);
       if (rows.length > 0) {
         return { success: false, message: 'Horario ya registrado' };
       }
-      
+
       await db.query('INSERT INTO HorariosMedicos(DiaSemana, HoraInicio, HoraFin, MedicoID) VALUES(?, ?, ?, ?)', [dia, horaInicio, horaFin, medicoId]);
       return { success: true, message: 'Horario creado con éxito' };
     } catch (error) {
+      console.log(error)
       return { success: false, message: 'Error al crear el horario', error };
     }
   }
@@ -49,9 +51,10 @@ class Horario {
     }
   }
 
-  static async updateHorario(diaSemana, horaInicio, horaFin, medicoId) {
+  static async updateHorario(medicoID, DiaSemana, HoraInicio, HoraFin, diaN, horaInicioN, horaFinN) {
     try {
-      const result = await db.query('UPDATE HorariosMedicos SET HoraInicio = ?, HoraFin = ? WHERE DiaSemana = ? AND MedicoID = ?', [horaInicio, horaFin, diaSemana, medicoId]);
+      // console.log('UPDATE HorariosMedicos SET HoraInicio = ?, HoraFin = ?, DiaSemana = ? WHERE MedicoID = ?, HoraInicio = ?, HoraFin = ? AND DiaSemana = ? ', [horaInicioN, horaFinN, diaN, medicoID, HoraInicio, HoraFin, DiaSemana])
+      const result = await db.query('UPDATE HorariosMedicos SET HoraInicio = ?, HoraFin = ?, DiaSemana = ? WHERE MedicoID = ? AND HoraInicio = ? AND HoraFin = ? AND DiaSemana = ? ', [horaInicioN, horaFinN, diaN, medicoID, HoraInicio, HoraFin, DiaSemana]);
       return true;
     } catch (error) {
       return false;
