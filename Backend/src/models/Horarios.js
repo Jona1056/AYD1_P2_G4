@@ -51,9 +51,10 @@ class Horario {
     }
   }
 
-  static async updateHorario(diaSemana, horaInicio, horaFin, medicoId) {
+  static async updateHorario(medicoID, DiaSemana, HoraInicio, HoraFin, diaN, horaInicioN, horaFinN) {
     try {
-      const result = await db.query('UPDATE HorariosMedicos SET HoraInicio = ?, HoraFin = ? WHERE DiaSemana = ? AND MedicoID = ?', [horaInicio, horaFin, diaSemana, medicoId]);
+      // console.log('UPDATE HorariosMedicos SET HoraInicio = ?, HoraFin = ?, DiaSemana = ? WHERE MedicoID = ?, HoraInicio = ?, HoraFin = ? AND DiaSemana = ? ', [horaInicioN, horaFinN, diaN, medicoID, HoraInicio, HoraFin, DiaSemana])
+      const result = await db.query('UPDATE HorariosMedicos SET HoraInicio = ?, HoraFin = ?, DiaSemana = ? WHERE MedicoID = ? AND HoraInicio = ? AND HoraFin = ? AND DiaSemana = ? ', [horaInicioN, horaFinN, diaN, medicoID, HoraInicio, HoraFin, DiaSemana]);
       return true;
     } catch (error) {
       return false;

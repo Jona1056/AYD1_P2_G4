@@ -33,10 +33,18 @@ const Login = () => {
           navigate('/doctores');
         }
       }else{
+        setFormData({
+          correo: '',
+          contrasena: ''
+        });
         swal("Error", "Correo o Contraseña incorrectos", "error");
       }
     
     } catch (error) {
+      setFormData({
+        correo: '',
+        contrasena: ''
+      });
       swal("Error", "No se pudo iniciar sesión", "error");
     }
   };
@@ -68,7 +76,7 @@ const Login = () => {
                 name="contrasena"
                 value={formData.contrasena}
                 onChange={handleChange}
-                required
+          
               />
             </div>
             <button type="submit" className="button login__submit">

@@ -35,9 +35,9 @@ class Usuario {
 
   static async update(nombre, apellido, genero, correo, contrasena, rol, foto, fechaNacimiento, especialidad, direccionClinica) {
     const hashedPassword = await bcrypt.hash(contrasena, 10);
-    await db.query('UPDATE Usuarios SET Nombre = ?, Apellido = ?, Genero = ?, Contrasena = ?, Rol = ?, Foto = ?, FechaNacimiento = ?, Especialidad = ?, DireccionClinica = ? WHERE Correo = ?',
-      [nombre, apellido, genero, hashedPassword, rol, foto, fechaNacimiento, especialidad, direccionClinica, correo]);
-    return new Usuario(nombre, apellido, genero, correo, contrasena, rol, foto, fechaNacimiento, especialidad, direccionClinica);
+    await db.query('UPDATE Usuarios SET Nombre = ?, Apellido = ?, Genero = ?, Rol = ?, Foto = ?, FechaNacimiento = ?, Especialidad = ?, DireccionClinica = ? WHERE Correo = ?',
+      [nombre, apellido, genero, rol, foto, fechaNacimiento, especialidad, direccionClinica, correo]);
+    return new Usuario(nombre, apellido, genero, correo, rol, foto, fechaNacimiento, especialidad, direccionClinica);
   }
 
   static async findByCorreo(correo) {

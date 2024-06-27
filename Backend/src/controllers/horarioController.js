@@ -40,6 +40,7 @@ exports.deleteHorario = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 }
+
 exports.getHorarioDoctorDia = async (req, res) => {
   const { dia, medicoID } = req.params;
   try {
@@ -49,3 +50,19 @@ exports.getHorarioDoctorDia = async (req, res) => {
     res.status(500).json({ message: 'Internal server error', error });
   }
 }
+
+exports.updateHorario = async (req, res) => {
+  const { medicoID, DiaSemana, HoraInicio, HoraFin, diaN, horaInicioN, horaFinN } = req.body;
+  try {
+      // Llamar a la función del modelo para actualizar el horario
+      const result = await Horario.updateHorario(medicoID, DiaSemana, HoraInicio, HoraFin, diaN, horaInicioN, horaFinN);
+      if (result) {
+          res.status(200).json({ message: 'Horario actualizado correctamente' });
+      } else {
+          res.status(500).json({ message: 'Error al actualizar el horario' });
+      }
+  } catch (error) {
+      console.error("Error al actualizar el horario:", error);
+      res.status(500).json({ message: 'Internal server error', error });
+  }
+};

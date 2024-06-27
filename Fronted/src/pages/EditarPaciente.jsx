@@ -4,47 +4,49 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import swal from "sweetalert";
 import "../styles/vista-6.css"; // Importa el archivo CSS
-import NavigationBar from "./Navbar";
+import Navbar1 from "../components/navbar";
 
-const EditarPerfilMedico = () => {
-
+const EditarPerfilPaciente = () => {
+  
     const [formData, setFormData] = useState({
         Nombre: "",
         Apellido: "",
         Genero: "",
         Correo: "",
         Contrasena: "",
-        Especialidad: "",
-        DireccionClinica: "",
         Foto: "",
         Rol: "",
         FechaNacimiento: ""
-    })
+    });
 
     const id_usuario = sessionStorage.getItem('id_usuario');
 
     useEffect(() => {
-        const fetchMedicoData = async () => {
+        const fetchPacienteData = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/api/usuarios/medico/${id_usuario}`);
+                const response = await axios.get(`http://localhost:3000/api/usuarios/paciente/${id_usuario}`);
                 const medicoData = response.data[0];
+                const fechaISO = medicoData.FechaNacimiento;
+                const fecha = new Date(fechaISO);
+                const dia = String(fecha.getDate()).padStart(2, '0');
+                const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+                const anio = fecha.getFullYear();
+                const fechaFormateada = `${anio}-${mes}-${dia}`; // "2001-10-10"
                 setFormData({
                     Nombre: medicoData.Nombre,
                     Apellido: medicoData.Apellido,
                     Genero: medicoData.Genero,
                     Correo: medicoData.Correo,
                     Contrasena: "",
-                    Especialidad: medicoData.Especialidad,
-                    DireccionClinica: medicoData.DireccionClinica,
                     Foto: medicoData.Foto,
                     Rol: medicoData.Rol,
-                    FechaNacimiento: medicoData.FechaNacimiento
+                    FechaNacimiento: fechaFormateada 
                 });
             } catch(error) {
                 console.error('Error fetching medico data: ', error);
             }
         };
-        fetchMedicoData();
+        fetchPacienteData();
     }, [id_usuario]);
 
     const validarContrasena = (contrasena) => {
@@ -74,7 +76,7 @@ const EditarPerfilMedico = () => {
             const response = await axios.put(`http://localhost:3000/api/usuarios/update/${formData.Correo}`, formData)
             console.log('Respuesta del servidor: ', response.data);
             swal("Exito", "Perfil actualizado correctamente", "success");
-
+       
         } catch(error) {
             swal("Error", "No se pudo actualizar el perfil", "error");
             console.error("Error updating profile:", error);
@@ -83,12 +85,12 @@ const EditarPerfilMedico = () => {
 
     return (
         <div>
-              <NavigationBar/>
+              < Navbar1 />
        
      
         <Container className="mt-5">
          
-            <h1 className="text-center mb-4">Editar Perfil Médico</h1>
+            <h1 className="text-center mb-4">Editar Perfil Paciente</h1>
             <Card>
                 <Card.Body>
                     <Form onSubmit={handleSubmit}>
@@ -133,7 +135,7 @@ const EditarPerfilMedico = () => {
                                     >
                                         <option value="M">Masculino</option>
                                         <option value="F">Femenino</option>
-                                       
+                                      
                                     </Form.Control>
                                 </Form.Group>
                             </Col>
@@ -150,50 +152,7 @@ const EditarPerfilMedico = () => {
                             </Col>
                         </Row>
                         <Row className="mt-3">
-                        
-                            <Col md={6}>
-                                <Form.Group controlId="formEspecialidad">
-                                    <Form.Label>Especialidad</Form.Label>
-                                    <Form.Control 
-                                        type="text" 
-                                        placeholder="Ingresa tu especialidad"
-                                        name="Especialidad"
-                                        value={formData.Especialidad}
-                                        onChange={handleInputChange}
-                                        required 
-                                    />
-                                </Form.Group>
-                            </Col>
-                        </Row>
-                        <Row className="mt-3">
-                            <Col md={6}>
-                                <Form.Group controlId="formDireccionClinica">
-                                    <Form.Label>Dirección Clínica</Form.Label>
-                                    <Form.Control 
-                                        type="text" 
-                                        placeholder="Ingresa la dirección de tu clínica"
-                                        name="DireccionClinica"
-                                        value={formData.DireccionClinica}
-                                        onChange={handleInputChange}
-                                        required 
-                                    />
-                                </Form.Group>
-                            </Col>
-                            <Col md={6}>
-                                <Form.Group controlId="formFoto">
-                                    <Form.Label>Foto</Form.Label>
-                                    <Form.Control 
-                                        type="text"
-                                        placeholder="Ingresa la url de tu foto"
-                                        name="Foto"
-                                        value={formData.Foto}
-                                        onChange={handleInputChange}
-                                        required 
-                                    />
-                                </Form.Group>
-                            </Col>
-                        </Row>
-                        <Row className="mt-3">
+                    
                             <Col md={6}>
                                 <Form.Group controlId="formRol">
                                     <Form.Label>Rol</Form.Label>
@@ -202,6 +161,21 @@ const EditarPerfilMedico = () => {
                                         placeholder="Ingresa tu rol"
                                         name="Rol"
                                         value={formData.Rol}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                </Form.Group>
+                            </Col>
+                        </Row>
+                        <Row className="mt-3">
+                            <Col md={6}>
+                                <Form.Group controlId="formFechaNacimiento">
+                                    <Form.Label>Fecha de Nacimiento</Form.Label>
+                                    <Form.Control
+                                        type="date"
+                                        placeholder="Ingresa tu fecha de nacimiento"
+                                        name="FechaNacimiento"
+                                        value={formData.FechaNacimiento}
                                         onChange={handleInputChange}
                                         required
                                     />
@@ -217,6 +191,6 @@ const EditarPerfilMedico = () => {
         </Container>
         </div>
     );
-};
+}
 
-export default EditarPerfilMedico;
+export default EditarPerfilPaciente;
