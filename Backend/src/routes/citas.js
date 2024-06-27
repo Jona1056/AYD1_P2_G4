@@ -11,5 +11,6 @@ router.post('/returndatesdoctor', citasController.obtenerCitasPorMedico);
 router.get('/returncitashistorial/:idUsuario',citasController.obtenerCitasProgramadasHistorial)
 router.get('/returncitashistorialdoctor/:idUsuario',citasController.obtenerCitasProgramadasHistorialMedico)
 
+//ci
 module.exports = router;
 //routes/citas.js
