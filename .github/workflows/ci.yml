@@ -91,3 +91,38 @@ jobs:
       run: |
         cd Fronted
         npx cypress run
+
+  verificacion:
+    runs-on: ubuntu-latest
+    needs: compilacion
+    env:
+      DB_HOST : "34.170.219.16"
+      DB_USER : "root"
+      DB_PASSWORD : "{u~x)|)8{6;|Pj6f"
+      DB_NAME : "PROYECTOAYD2"
+      PORT : "3000"
+
+    steps:
+    - name: Clonando el repositorio
+      uses: actions/checkout@v4
+
+    - name: Intalar nodejs (Setup Node.js)
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+
+    - name: Instalar dependecias del backend
+      run: |
+        cd Backend
+        npm install
+
+    - name: Levantar el backend
+      run: |
+        cd Backend/src
+        node server.js &
+        sleep 10
+    
+    - name: Ejecutar ESLint en el backend
+      run: |
+        cd Backend
+        npx eslint . --ext .js

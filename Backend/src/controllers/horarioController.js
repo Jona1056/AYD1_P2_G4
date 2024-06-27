@@ -62,7 +62,7 @@ exports.updateHorario = async (req, res) => {
           res.status(500).json({ message: 'Error al actualizar el horario' });
       }
   } catch (error) {
-      console.error("Error al actualizar el horario:", error);
+      console.error('Error al actualizar el horario:', error);
       res.status(500).json({ message: 'Internal server error', error });
   }
 };

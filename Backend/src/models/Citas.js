@@ -15,7 +15,7 @@ class Citas {
   static async createCita(pacienteID, medicoID, fecha, hora, motivo, estado, direccionClinica) {
     try {
 
-      const [rows] = await db.query('SELECT * FROM Citas WHERE MedicoID = ? AND Fecha = ? AND Hora = ? AND Estado = ?', [medicoID, fecha, hora, "Programada"]);
+      const [rows] = await db.query('SELECT * FROM Citas WHERE MedicoID = ? AND Fecha = ? AND Hora = ? AND Estado = ?', [medicoID, fecha, hora, 'Programada']);
       if (rows.length > 0) {
         console.log(rows)
         return { success: false, message: 'Esta cita ya está ocupada' };
@@ -56,14 +56,14 @@ class Citas {
                 WHERE 
                     Citas.PacienteID = ? 
                 AND 
-                    Citas.Estado = "Programada"
+                    Citas.Estado = 'Programada'
             `;
 
       const [rows] = await db.query(query, [idUsuario]);
 
       return rows;
     } catch (error) {
-      console.error("Error al obtener las citas programadas:", error);
+      console.error('Error al obtener las citas programadas:', error);
       return null;
     }
   }
@@ -91,14 +91,14 @@ class Citas {
                 WHERE 
                     Citas.PacienteID = ? 
                 AND 
-                    Citas.Estado != "Programada"
+                    Citas.Estado != 'Programada'
             `;
 
       const [rows] = await db.query(query, [idUsuario]);
 
       return rows;
     } catch (error) {
-      console.error("Error al obtener las citas no programadas:", error);
+      console.error('Error al obtener las citas no programadas:', error);
       return null;
     }
   }
@@ -125,14 +125,14 @@ class Citas {
                 WHERE 
                     Citas.MedicoID = ? 
                 AND 
-                    Citas.Estado = "Programada"
+                    Citas.Estado = 'Programada'
             `;
 
       const [rows] = await db.query(query, [idMedico]);
 
       return rows;
     } catch (error) {
-      console.error("Error al obtener las citas programadas:", error);
+      console.error('Error al obtener las citas programadas:', error);
       return null;
     }
   }
@@ -159,14 +159,14 @@ class Citas {
                 WHERE 
                     Citas.MedicoID = ? 
                 AND 
-                    Citas.Estado != "Programada"
+                    Citas.Estado != 'Programada'
             `;
 
       const [rows] = await db.query(query, [idMedico]);
 
       return rows;
     } catch (error) {
-      console.error("Error al obtener las citas programadas:", error);
+      console.error('Error al obtener las citas programadas:', error);
       return null;
     }
   }
