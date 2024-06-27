@@ -9,6 +9,85 @@ jobs:
   compilacion:
     runs-on: ubuntu-latest
 
+    env:
+      DB_HOST : "34.170.219.16"
+      DB_USER : "root"
+      DB_PASSWORD : "{u~x)|)8{6;|Pj6f"
+      DB_NAME : "PROYECTOAYD2"
+      PORT : "3000"
+
     steps:
     - name: Clonando el repositorio
       uses: actions/checkout@v4
+
+    - name: Intalar nodejs (Setup Node.js)
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+
+    - name: Instalar dependecias del backend
+      run: |
+        cd Backend
+        npm install
+
+    - name: Levantar el backend
+      run: |
+        cd backend/src
+        node server.js &
+        sleep 10
+    
+    - name: Instalar dependecias del frontend
+      run: |
+        cd fronted
+        npm install
+
+    - name: Levantar el frontend
+      run: |
+        cd fronted
+        npm run dev &
+
+  test:
+    runs-on: ubuntu-latest
+    needs: compilacion
+    env:
+      DB_HOST : "34.170.219.16"
+      DB_USER : "root"
+      DB_PASSWORD : "{u~x)|)8{6;|Pj6f"
+      DB_NAME : "PROYECTOAYD2"
+      PORT : "3000"
+
+    steps:
+    - name: Clonando el repositorio
+      uses: actions/checkout@v4
+
+    - name: Intalar nodejs (Setup Node.js)
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+
+    - name: Instalar dependecias del backend
+      run: |
+        cd backend
+        npm install
+    
+    - name: Instalar dependecias del frontend
+      run: |
+        cd fronted
+        npm install
+
+    - name: Levantar el frontend
+      run: |
+        cd fronted
+        npm run dev &
+        sleep 10
+
+    - name: Levantar el backend
+      run: |
+        cd backend/src
+        node server.js &
+        sleep 10
+        
+    - name: Pruebas E2E
+      run: |
+        cd fronted
+        npx cypress run
