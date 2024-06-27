@@ -32,18 +32,18 @@ jobs:
 
     - name: Levantar el backend
       run: |
-        cd backend/src
+        cd Backend/src
         node server.js &
         sleep 10
     
     - name: Instalar dependecias del frontend
       run: |
-        cd fronted
+        cd Fronted
         npm install
 
     - name: Levantar el frontend
       run: |
-        cd fronted
+        cd Fronted
         npm run dev &
 
   test:
@@ -67,27 +67,27 @@ jobs:
 
     - name: Instalar dependecias del backend
       run: |
-        cd backend
+        cd Backend
         npm install
     
     - name: Instalar dependecias del frontend
       run: |
-        cd fronted
+        cd Fronted
         npm install
 
     - name: Levantar el frontend
       run: |
-        cd fronted
+        cd Fronted
         npm run dev &
         sleep 10
 
     - name: Levantar el backend
       run: |
-        cd backend/src
+        cd Backend/src
         node server.js &
         sleep 10
-        
+
     - name: Pruebas E2E
       run: |
-        cd fronted
+        cd Fronted
         npx cypress run
