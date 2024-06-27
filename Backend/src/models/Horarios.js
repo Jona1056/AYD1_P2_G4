@@ -21,7 +21,7 @@ class Horario {
 
   static async createHorario(medicoId, horaInicio, horaFin, dia) {
     try {
-      console.log(medicoId, dia);
+  
       const [rows] = await db.query('SELECT * FROM HorariosMedicos WHERE MedicoID = ? AND DiaSemana = ? AND HoraInicio = ? AND HoraFin = ?', [medicoId, dia, horaInicio, horaFin]);
       if (rows.length > 0) {
         return { success: false, message: 'Horario ya registrado' };
@@ -30,7 +30,7 @@ class Horario {
       await db.query('INSERT INTO HorariosMedicos(DiaSemana, HoraInicio, HoraFin, MedicoID) VALUES(?, ?, ?, ?)', [dia, horaInicio, horaFin, medicoId]);
       return { success: true, message: 'Horario creado con éxito' };
     } catch (error) {
-      console.log(error)
+      console.error(error)
       return { success: false, message: 'Error al crear el horario', error };
     }
   }
@@ -43,7 +43,6 @@ class Horario {
 
   static async deleteHorario(diaSemana, medicoId) {
     try {
-      console.log(diaSemana, medicoId);
       await db.query('DELETE FROM HorariosMedicos WHERE DiaSemana = ? AND MedicoID = ?', [diaSemana, medicoId]);
       return true;
     } catch (error) {

@@ -26,10 +26,9 @@ exports.createHorario = async (req, res) => {
 
 exports.deleteHorario = async (req, res) => {
   const { MedicoID, DiasSemana } = req.body;
-  console.log(DiasSemana);
   try {
     for (const Dias of DiasSemana) {
-      console.log(Dias);
+
       const result = await Horario.deleteHorario(Dias, MedicoID);
       if (!result) {
         return res.status(400).json({ message: 'Error al eliminar el horario' });

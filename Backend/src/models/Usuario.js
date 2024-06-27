@@ -21,11 +21,9 @@ class Usuario {
     return rows.map(row => new Usuario(row.Nombre, row.Apellido, row.Genero, row.Correo, row.Contrasena, row.Rol, row.Foto, row.FechaNacimiento, row.Especialidad, row.DireccionClinica, row.ID));
   }
   static async createUsuario(nombre, apellido, genero, correo, contrasena, rol, foto, fechaNacimiento, especialidad, direccionClinica) {
-    console.log(nombre, apellido, genero, correo, contrasena, rol, foto, fechaNacimiento, especialidad, direccionClinica)
     const hashedPassword = await bcrypt.hash(contrasena, 10);
     const [result] = await db.query('INSERT INTO Usuarios (Nombre, Apellido, Genero, Correo, Contrasena, Rol, Foto, FechaNacimiento, Especialidad, DireccionClinica) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       [nombre, apellido, genero, correo, hashedPassword, rol, foto, fechaNacimiento, especialidad, direccionClinica]);
-    console.log(result);
     return null;
   }
 
@@ -69,12 +67,10 @@ class Usuario {
       AND C.ID IS NULL;
   `, [id_usuario]);
   
-    console.log(rows)
     return rows.map(row => new Usuario(row.Nombre, row.Apellido, row.Genero, row.Correo, row.Contrasena, row.Rol, row.Foto, row.FechaNacimiento, row.Especialidad, row.DireccionClinica, row.ID));
   }
 
   static async getMedicoById(id_Usuario) {
-    console.log(id_Usuario);
     const [rows] = await db.query('SELECT * FROM Usuarios WHERE ID = ? AND Rol = "Medico"', [id_Usuario]);
     return rows.map(row => new Usuario(row.Nombre, row.Apellido, row.Genero, row.Correo, row.Contrasena, row.Rol, row.Foto, row.FechaNacimiento, row.Especialidad, row.DireccionClinica, row.ID));
   }

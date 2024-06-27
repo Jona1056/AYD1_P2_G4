@@ -17,7 +17,6 @@ class Citas {
 
       const [rows] = await db.query('SELECT * FROM Citas WHERE MedicoID = ? AND Fecha = ? AND Hora = ? AND Estado = ?', [medicoID, fecha, hora, 'Programada']);
       if (rows.length > 0) {
-        console.log(rows)
         return { success: false, message: 'Esta cita ya está ocupada' };
       }
 
@@ -26,7 +25,7 @@ class Citas {
       await db.query('INSERT INTO Citas(PacienteID, MedicoID, Fecha, Hora, Motivo, Estado,direccionClinica) VALUES(?, ?, ?, ?, ?, ?,?)', [pacienteID, medicoID, fecha, hora, motivo, estado, direccionClinicaCliente[0][0].direccionClinica]);
       return { success: true, message: 'Cita programada con éxito' };
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return { success: false, message: 'Error al crear la cita', error };
     }
   }
@@ -196,7 +195,7 @@ class Citas {
                                             Citas.ID = ?`, [idCita]);
       return rows[0];
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return null;
     }
   }

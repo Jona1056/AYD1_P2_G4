@@ -125,4 +125,4 @@ jobs:
     - name: Ejecutar ESLint en el backend
       run: |
         cd Backend
-        npx eslint . --ext .js
+        npx eslint . src/
