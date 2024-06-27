@@ -3,6 +3,8 @@ describe('Login test incorrecto', () => {
     cy.visit('http://localhost:5173/')
     cy.get(':nth-child(2) > .login__input').type('garciajonatan56@gmail.com')
     cy.wait(1000)
+    cy.get(':nth-child(3) > .login__input').type('Contra1234')
+    cy.wait(1000)
     cy.get(':nth-child(3) > .login__input').type('123456')
     cy.wait(1000)
     cy.get('.button__text').click()
