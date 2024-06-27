@@ -9,7 +9,7 @@ describe('Test cancelar cita por parte del Usuario', () => {
       cy.wait(1000)
       cy.get('.me-auto > :nth-child(2)').click()
       cy.wait(1000)
-      cy.get('.front').click()
+      cy.get(':nth-child(1) > .buttoncancelar > .front').click()
       cy.wait(1000)
       cy.get('.swal-text').should('have.text', 'La cita ha sido cancelada')
       cy.wait(1000)
