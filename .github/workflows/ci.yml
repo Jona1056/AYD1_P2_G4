@@ -1,0 +1,10 @@
+name: continues integration
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  compilacion:
+    runs-on: ubuntu-latest
