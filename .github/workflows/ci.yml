@@ -8,3 +8,7 @@ on:
 jobs:
   compilacion:
     runs-on: ubuntu-latest
+
+    steps:
+    - name: Clonando el repositorio
+      uses: actions/checkout@v4
